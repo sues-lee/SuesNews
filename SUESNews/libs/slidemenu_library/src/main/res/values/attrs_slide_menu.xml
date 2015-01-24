@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="SlideMenu">
+        <attr name="rightPadding" format="dimension" />
+    </declare-styleable>
+</resources>
