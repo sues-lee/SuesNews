@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="main_color">#f68b1f</color>
+    <color name="help_color">#b0ca63</color>
+    <color name="help_color2">#249489</color>
+
+    <!--menu-->
     <color name="menu_header_text">#FFF</color>
     <color name="menu_text">#FFF</color>
     <color name="menu_footer_text">#FFF</color>
+
+    <!--content-->
+    <color name="content_header_text">#FFF</color>
+    <color name="content_header_image_background">#0000</color>
+    <color name="content_header_background">#f68b1f</color>
+
 </resources>
