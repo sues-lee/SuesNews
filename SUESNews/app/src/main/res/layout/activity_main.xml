@@ -34,6 +34,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <!--此处为主界面的内容-->
                 <!--<ImageButton-->
                     <!--android:id="@+id/buttonToggle"-->

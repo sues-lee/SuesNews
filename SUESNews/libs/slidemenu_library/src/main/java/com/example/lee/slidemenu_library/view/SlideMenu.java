@@ -34,6 +34,8 @@ public class SlideMenu extends HorizontalScrollView {
     private int mDefaultRightPadding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,150,
             getContext().getResources().getDisplayMetrics());
 
+    private float mStartX;             //记录手指按下时的x坐标
+    private int mCanScrollArea;         //可以拖出菜单的区域
 
     public SlideMenu(Context context) {
         this(context,null);
@@ -85,17 +87,21 @@ public class SlideMenu extends HorizontalScrollView {
             new GestureDetector.SimpleOnGestureListener(){
                 @Override
                 public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                    float x = e2.getX() - e1.getX();
-                    //float y = e2.getY() - e2.getY();
-                    if(x > 0){
+                    float startX = e1.getX();
+                    float endX = e2.getX();
+                    float x = endX - startX;
+                    if (endX > startX && startX > mCanScrollArea){
+                        return false;
+                    }
+                    if( x > 0){
                         openMenu();
                     }else{
                         closeMenu();
                     }
                     return true;
-
                 }
             };
+
     /**
      * 设置子View和自己的宽和高
      * @param widthMeasureSpec
@@ -111,6 +117,9 @@ public class SlideMenu extends HorizontalScrollView {
             mMenuWidth = mScreenWidth - mMenuRightPadding;
             mMenu.getLayoutParams().width = mMenuWidth;
             mContent.getLayoutParams().width = mScreenWidth;
+
+            //mCanScrollArea = getMeasuredWidth()/5;
+            mCanScrollArea = 40;
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
@@ -134,11 +143,26 @@ public class SlideMenu extends HorizontalScrollView {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        int x = getScrollX();
+        if (x == mMenuWidth){
+            //完全关闭时事件只传给内容区域
+            mContent.dispatchTouchEvent(ev);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
         //如果是左右滑动事件，则不将事件传递给子view
         if(gesture.onTouchEvent(ev)){
             return true;
         }
-        return super.dispatchTouchEvent(ev);
+        int x = getScrollX();
+        //菜单未完全打开时
+        if (x <= mMenuWidth && x != 0){
+            return true;
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 
     /**
@@ -150,7 +174,7 @@ public class SlideMenu extends HorizontalScrollView {
      */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        if(gesture.onTouchEvent(ev)){
+        if (gesture.onTouchEvent(ev)) {
             return true;
         }
         int action = ev.getAction();
@@ -165,10 +189,17 @@ public class SlideMenu extends HorizontalScrollView {
                     this.smoothScrollTo(0,0);
                     mIsMenuOpen = true;
                 }
-                return true;
+                return false;
+            case MotionEvent.ACTION_DOWN:
+                mStartX = ev.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (ev.getX() > mStartX && mStartX > mCanScrollArea ){
+
+                    return false;
+                }
         }
 
-//        return super.onTouchEvent(ev) || b;
         return super.onTouchEvent(ev);
     }
 
