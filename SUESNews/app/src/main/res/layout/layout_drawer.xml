@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="@dimen/drawer_width"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    >
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/bottom_drawer"-->
+        <!--android:overScrollMode="never"-->
+        <!--android:background="#ccc">-->
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!-->-->
+            <ImageView
+                android:id="@+id/header_img"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/drawer_header_height"
+                android:src="@drawable/drawer_header"
+                android:scaleType="centerCrop"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/text_color"
+                android:layout_alignBottom="@+id/header_img"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_marginLeft="@dimen/text_margin"
+                android:layout_marginStart="@dimen/text_margin"
+                />
+            <!---->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_drawer"
+        android:layout_below="@+id/header_img"
+        android:background="@color/back_ground_color">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/view_margin">
+                <IconTextView
+                    android:text="{fa-heart}Android"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:textSize="@dimen/text_size_title"
+                    android:textColor="@color/primary_text"
+                    android:gravity="center_vertical"
+
+                    />
+
+                <IconTextView
+                    android:text="{fa-android}Android"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/list_item_height"
+                    android:layout_marginLeft="@dimen/text_margin"
+                    android:layout_marginRight="@dimen/text_margin"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:textSize="@dimen/text_size_title"
+                    android:textColor="@color/primary_text"
+                    android:gravity="center_vertical"
+                    />
+
+            </LinearLayout>
+
+        <!--</RelativeLayout>-->
+
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height"
+        android:orientation="horizontal"
+        android:background="#825"
+        android:layout_alignParentBottom="true"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="设置"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_margin="@dimen/text_margin"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
+

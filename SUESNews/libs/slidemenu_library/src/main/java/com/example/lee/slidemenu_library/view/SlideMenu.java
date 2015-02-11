@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.example.lee.slidemenu_library.R;
 
 
+
 /**
  * TODO: document your custom view class.
  */
