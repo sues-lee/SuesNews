@@ -2,16 +2,27 @@ package com.example.lee.suesnews.ui.fragments;
 
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.bean.NewsItem;
+import com.example.lee.suesnews.biz.NewsItemBiz;
+import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.ui.MyRecyclerAdapter;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
@@ -25,23 +36,22 @@ public class NewsListFragment extends BaseFragment {
     private static final String ARG_DATA_LIST = "datalist";
     private static final String ARG_NEWS_TYPE = "newsType";
 
-    public String getNewsType() {
-        if (mNewsType != null)
-            return mNewsType;
-        else
-            return "TITLE";
-    }
 
     //新闻类型
     private String mNewsType;
 
     private ObservableRecyclerView mRecyclerView;
-    private ObservableRecyclerView.Adapter mAdapter;
+    private MyRecyclerAdapter mAdapter;
     private ObservableRecyclerView.LayoutManager mLayoutManager;
-    private String[] mDummyDataList;
+
+    //当前页码
+    private int mCurrentPage;
 
     private PtrFrameLayout frame;
     private MaterialHeader header;
+
+    //缓存
+    private List<NewsItem> mNewsItems = new ArrayList<NewsItem>();
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -88,12 +98,14 @@ public class NewsListFragment extends BaseFragment {
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout ptrFrameLayout) {
-                ptrFrameLayout.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        ptrFrameLayout.refreshComplete();
-                    }
-                },2000);
+//                ptrFrameLayout.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ptrFrameLayout.refreshComplete();
+//                    }
+//                },2000);
+                getData(mAdapter,mCurrentPage,true);
+                ptrFrameLayout.refreshComplete();
             }
         });
 
@@ -107,8 +119,21 @@ public class NewsListFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         //设置adapter
-        mAdapter = new MyRecyclerAdapter(mDummyDataList);
+        mAdapter = new MyRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
+
+        //得到数据
+        getData(mAdapter,mCurrentPage,false);
+
+        //监听list滑动事件
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                //TODO:添加加载新项目的方法
+                //int lastPos = mLayoutManager.getItemCount();
+            }
+        });
 }
 
     @Override
@@ -117,16 +142,131 @@ public class NewsListFragment extends BaseFragment {
         if (getArguments() != null) {
             mNewsType = getArguments().getString(ARG_NEWS_TYPE);
         }
+        mCurrentPage = 1;
 
-        //得到数据
-        getDummyData();
     }
 
     /**
      * 根据类型得到新闻数据
      */
     private void getDummyData(){
-        mDummyDataList = new String[]{mNewsType,"A","B","C","D","A","B","C","D","A","B","C","D","A","B","C","D"};
+//        mDummyDataList = new String[]{mNewsType,"A","B","C","D","A","B","C","D","A","B","C","D","A","B","C","D"};
+
+//        mDummyDataList = new String[30];
+//        Runnable r = new Runnable() {
+//            @Override
+//            public void run() {
+//                NewsItemBiz biz = new NewsItemBiz();
+//                int currentPage = 1;
+//                int i = 0;
+//                try {
+//                    List<NewsItem> newsItems = biz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage);
+//                    for (NewsItem item : newsItems) {
+//                        Log.i("SSS", item.toString());
+//                        mDummyDataList[i] = item.getTitle();
+//                                i++;
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }finally{
+//                }
+//            }
+//        };
+//        Thread th = new Thread(r);
+//        th.start();
+    }
+
+    /**
+     * 获取某一页的数据
+     * @param adapter
+     * @param currentPage 页码
+     * @param forced      是否强制刷新
+     */
+    private void getData(MyRecyclerAdapter adapter,int currentPage,boolean forced) {
+        int total = mNewsItems.size();
+//        Log.i("LIXU","total"+total);
+        //不强制刷新时，如果此页已存在则直接从内存中加载
+        if (!forced && total>0 &&
+                (mNewsItems.get(total-1).getPageNumber() >= currentPage) ){
+//            Log.i("LIXU","没刷新");
+            mAdapter.addNews(mNewsItems);
+            mAdapter.notifyDataSetChanged();
+            return;
+        }
+
+        Log.i("LIXU","size"+total);
+        //TODO:在刷新出新的新闻时应增量刷新
+        if(forced && mNewsItems.size()>0){
+            mNewsItems.clear();
+            Log.i("LIXU","清空"+total);
+        }
+        LoadDataTask loadDataTask = new LoadDataTask(adapter,forced);
+        loadDataTask.execute(currentPage);
+    }
+
+    /**
+     * 加载新闻列表的任务
+     *
+     */
+    class LoadDataTask extends AsyncTask<Integer, Integer,List<NewsItem> >{
+
+        private MyRecyclerAdapter mAdapter;
+        private boolean mIsForced;
+
+        public LoadDataTask(MyRecyclerAdapter adapter,boolean forced) {
+            super();
+            mAdapter = adapter;
+            mIsForced = forced;
+        }
+
+        /**
+         *得到当前页码的新闻列表
+         * @param currentPage 当前页码
+         * @return 当前页码的新闻列表,出错返回null
+         */
+        @Override
+        protected List<NewsItem> doInBackground(Integer... currentPage) {
+
+            try {
+                return NewsItemBiz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        /**
+         * 得到新闻列表后将其加载
+         * @param newsItems 得到的新闻列表
+         */
+        @Override
+        protected void onPostExecute(List<NewsItem> newsItems) {
+            if (newsItems == null) {
+                //TODO:字符串转换为资源
+                Toast.makeText(getActivity(),"刷新失败，请检查网络后重试",Toast.LENGTH_LONG).show();
+                return;
+            }
+            //TODO:处理强制刷新
+            if(mIsForced){
+                mAdapter.getmNewsList().clear();
+            }
+            mNewsItems.addAll(newsItems);
+
+            mAdapter.addNews(newsItems);
+            mAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
     }
 
 }

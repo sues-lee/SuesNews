@@ -1,12 +1,17 @@
 package com.example.lee.suesnews.ui;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.bean.NewsItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,18 +19,36 @@ import com.example.lee.suesnews.R;
  */
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
-    private String[] mDataset;  //外面传入的数据
+
+    //当前显示的数据
+    private List<NewsItem> mNewsList = new ArrayList<NewsItem>();
+
+    public List<NewsItem> getmNewsList() {
+        return mNewsList;
+    }
+
+    public MyRecyclerAdapter(){
+    }
 
 
-    public MyRecyclerAdapter(String[] myDataset){
-        mDataset = myDataset;
+    public MyRecyclerAdapter(List<NewsItem> myDataset){
+        mNewsList = myDataset;
+    }
+
+    /**
+     * 添加新闻列表
+     * @param news 要添加的新闻列表
+     */
+    public void addNews(List<NewsItem> news){
+        mNewsList.addAll(news);
+        Log.i("LIXU", "adapter" + mNewsList.size());
     }
 
     /**
      * 创建ViewHolder
      * @param viewGroup 父View
-     * @param i
-     * @return
+     * @param i 位置
+     * @return 返回得到的ViewHolder
      */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -43,19 +66,18 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
      */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.mTextView.setText(mDataset[i]);
+        viewHolder.mTextView.setText(mNewsList.get(i).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mNewsList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mTextView;
         public ViewHolder(View v){
             super(v);
-
         }
     }
 }

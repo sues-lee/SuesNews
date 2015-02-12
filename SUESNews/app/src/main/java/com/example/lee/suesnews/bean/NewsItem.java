@@ -13,6 +13,16 @@ public class NewsItem {
     private String link;    //链接
     private String date;    //日期
     private String content; //文章内容
+    private int pageNumber; //所在页码
+
+
+    public int getPageNumber() {
+        return pageNumber;
+    }
+
+    public void setPageNumber(int pageNumber) {
+        this.pageNumber = pageNumber;
+    }
 
     public int getId() {
         return id;

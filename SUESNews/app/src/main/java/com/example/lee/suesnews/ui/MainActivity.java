@@ -48,43 +48,7 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity implements ObservableScrollViewCallbacks {
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        //移除顶栏
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        setContentView(R.layout.activity_main);
-//
-//
-//        init();
-//
-//
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                NewsItemBiz biz = new NewsItemBiz();
-//                int currentPage = 1;
-//                try {
-//                    List<NewsItem> newsItems = biz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage);
-//                    for (NewsItem item : newsItems) {
-//                        Log.i("SSS", item.toString());
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }finally{
-//                }
-//            }
-//        };
-//        Thread th = new Thread(r);
-//        //th.start();
-//
-//
-//        String[] strs = new String[]{"a","b","c"};
-//        mMenuContentListView.setAdapter(
-//                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,strs));
-//
-//    }
-private ViewPager mViewPager;
+    private ViewPager mViewPager;
     //新闻列表
     private List<NewsListFragment> mFragmentList;
     private Toolbar mToolbar;
@@ -108,6 +72,15 @@ private ViewPager mViewPager;
         setContentView(R.layout.activity_main);
 
 
+        initViews();
+
+        initViewPager();
+
+
+
+    }
+
+    private void initViews() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar2);
         mToolbar.setTitle("My Title");
         setSupportActionBar(mToolbar);
@@ -118,6 +91,8 @@ private ViewPager mViewPager;
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             }
         });
+
+
         mMaterialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
             @Override
             public int getToolbarViewId() {
@@ -163,8 +138,6 @@ private ViewPager mViewPager;
         SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
 
 
-        initViewPager();
-
         mContent = (ViewGroup) findViewById(R.id.content);
         mDrawer = (ViewGroup) findViewById(R.id.drawer);
         mMainPage = (ViewGroup) findViewById(R.id.main_page);
@@ -172,9 +145,6 @@ private ViewPager mViewPager;
         //因为顶栏透明，要让出顶栏和底栏空间
         mMainPage.setPadding(0,config.getStatusBarHeight(),0,config.getNavigationBarHeight());
         mDrawer.setPadding(0,config.getStatusBarHeight(),0,config.getNavigationBarHeight());
-
-
-
     }
 
     private void initViewPager(){
@@ -183,6 +153,29 @@ private ViewPager mViewPager;
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mFragmentList = new ArrayList<NewsListFragment>();
+
+
+//        Runnable r = new Runnable() {
+//            @Override
+//            public void run() {
+//                NewsItemBiz biz = new NewsItemBiz();
+//                int currentPage = 1;
+//                try {
+//                    List<NewsItem> newsItems = biz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage);
+//                    for (NewsItem item : newsItems) {
+//                        Log.i("SSS", item.toString());
+//
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }finally{
+//                }
+//            }
+//        };
+//        Thread th = new Thread(r);
+//        th.start();
+
+
         NewsListFragment fragment1 = NewsListFragment.newInstance("LEIXING1");
         NewsListFragment fragment2 = NewsListFragment.newInstance("LEIXING2");
         NewsListFragment fragment3 = NewsListFragment.newInstance("LEIXING3");
@@ -198,21 +191,6 @@ private ViewPager mViewPager;
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),mFragmentList);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0);
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i2) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
 
         mTabs.setViewPager(mViewPager);
         mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

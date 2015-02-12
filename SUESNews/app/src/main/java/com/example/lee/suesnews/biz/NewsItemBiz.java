@@ -18,11 +18,11 @@ import java.util.List;
  */
 public class NewsItemBiz {
 
-    private final String BASE_TABLE_CLASS = "border1";  //包含新闻列表的table的class
-    private final String COLUMN_TABLE_CLASS = "columnStyle";    //包含新闻条目的table的class
-    private final String POST_TIME_CLASS = "posttime";        //包含新闻时间的class
+    private static final String BASE_TABLE_CLASS = "border1";  //包含新闻列表的table的class
+    private static final String COLUMN_TABLE_CLASS = "columnStyle";    //包含新闻条目的table的class
+    private static final String POST_TIME_CLASS = "posttime";        //包含新闻时间的class
 
-    public List<NewsItem> getNewsItems(int newsType,int currentPage) throws Exception {
+    public static List<NewsItem> getNewsItems(int newsType,int currentPage) throws Exception {
 
         String url = SuesApiUtils.getNewsUrl(newsType, currentPage);
         String htmlStr = HttpUtils.doGet(url);
@@ -44,6 +44,7 @@ public class NewsItemBiz {
 
             Element postTime = columnTable.getElementsByClass(POST_TIME_CLASS).get(0);
             newsItem.setDate(postTime.text());
+            newsItem.setPageNumber(currentPage);
             //文章内容点击进入后再添加
 
             newsItems.add(newsItem);
