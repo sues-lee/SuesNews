@@ -142,9 +142,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mContent = (ViewGroup) findViewById(R.id.content);
         mDrawer = (ViewGroup) findViewById(R.id.drawer);
         mMainPage = (ViewGroup) findViewById(R.id.main_page);
-
         //因为顶栏透明，要让出顶栏和底栏空间
-        if (CURRENT_VERSION > VERSION_KITKAT) {
+        if (CURRENT_VERSION >= VERSION_KITKAT) {
             mMainPage.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
             mDrawer.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
         }

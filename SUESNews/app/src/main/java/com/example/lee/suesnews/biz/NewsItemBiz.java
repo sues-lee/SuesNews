@@ -1,5 +1,6 @@
 package com.example.lee.suesnews.biz;
 
+import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.utils.HttpUtils;
@@ -37,6 +38,7 @@ public class NewsItemBiz {
         String htmlStr = HttpUtils.doGet(url);
 
         List<NewsItem> newsItems = new ArrayList<NewsItem>();
+
         NewsItem newsItem;
         Document document = Jsoup.parse(htmlStr);
         Element itemTable = document.getElementsByClass(BASE_TABLE_CLASS).get(0);
@@ -48,7 +50,7 @@ public class NewsItemBiz {
             Element columnTable = items.get(i).getElementsByClass(COLUMN_TABLE_CLASS).get(0);
             Element link = columnTable.getElementsByTag("a").get(0);
             String contentUrl = link.attr("href");  //新闻内容链接
-            newsItem.setLink(SuesApiUtils.NEWS_URL_MAIN+contentUrl);
+            newsItem.setUrl(SuesApiUtils.NEWS_URL_MAIN + contentUrl);
             newsItem.setTitle(link.child(0).text());    //设置新闻标题
 
 
@@ -68,5 +70,16 @@ public class NewsItemBiz {
         }
 
         return newsItems;
+    }
+
+    /**
+     * 根据新闻的url获取新闻内容
+     * @param url 新闻url
+     * @return
+     */
+    public static NewsContent getNewsContent(String url){
+
+        return null;
+
     }
 }

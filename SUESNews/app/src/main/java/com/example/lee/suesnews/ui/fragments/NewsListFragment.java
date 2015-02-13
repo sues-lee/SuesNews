@@ -98,12 +98,6 @@ public class NewsListFragment extends BaseFragment {
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout ptrFrameLayout) {
-//                ptrFrameLayout.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        ptrFrameLayout.refreshComplete();
-//                    }
-//                },2000);
                 getData(mAdapter,mCurrentPage,true);
                 ptrFrameLayout.refreshComplete();
             }
@@ -128,10 +122,16 @@ public class NewsListFragment extends BaseFragment {
         //监听list滑动事件
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //TODO:添加加载新项目的方法
-                //int lastPos = mLayoutManager.getItemCount();
+//                int lastPos = mLayoutManager.getItemCount();
+//                Log.i("SCROLL","dx:"+dx+"dy:"+dy);
             }
         });
 }
@@ -150,30 +150,7 @@ public class NewsListFragment extends BaseFragment {
      * 根据类型得到新闻数据
      */
     private void getDummyData(){
-//        mDummyDataList = new String[]{mNewsType,"A","B","C","D","A","B","C","D","A","B","C","D","A","B","C","D"};
 
-//        mDummyDataList = new String[30];
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                NewsItemBiz biz = new NewsItemBiz();
-//                int currentPage = 1;
-//                int i = 0;
-//                try {
-//                    List<NewsItem> newsItems = biz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage);
-//                    for (NewsItem item : newsItems) {
-//                        Log.i("SSS", item.toString());
-//                        mDummyDataList[i] = item.getTitle();
-//                                i++;
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }finally{
-//                }
-//            }
-//        };
-//        Thread th = new Thread(r);
-//        th.start();
     }
 
     /**

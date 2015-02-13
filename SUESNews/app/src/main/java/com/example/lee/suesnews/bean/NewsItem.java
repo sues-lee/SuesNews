@@ -10,7 +10,7 @@ public class NewsItem {
 
     private int type;       //文章类型
     private String title;   //标题
-    private String link;    //链接
+    private String url;    //链接
     private String date;    //日期
     private String content; //文章内容
     private int pageNumber; //所在页码
@@ -59,12 +59,12 @@ public class NewsItem {
         this.title = title;
     }
 
-    public String getLink() {
-        return link;
+    public String getUrl() {
+        return url;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setUrl(String link) {
+        this.url = url;
     }
 
     public String getDate() {
@@ -88,7 +88,7 @@ public class NewsItem {
         return "NewsItem{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", link='" + link + '\'' +
+                ", url='" + url + '\'' +
                 ", date='" + date + '\'' +
                 ", content='" + content + '\'' +
                 '}';
