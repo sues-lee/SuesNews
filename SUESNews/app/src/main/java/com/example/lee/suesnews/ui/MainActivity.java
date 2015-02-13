@@ -25,6 +25,7 @@ import android.view.Window;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,17 +67,17 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
     private final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
 
+    //侧边栏头部图片
+    private ImageView mHeaderImage;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         initViews();
 
         initViewPager();
-
-
 
     }
 
@@ -143,8 +144,19 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mMainPage = (ViewGroup) findViewById(R.id.main_page);
 
         //因为顶栏透明，要让出顶栏和底栏空间
-        mMainPage.setPadding(0,config.getStatusBarHeight(),0,config.getNavigationBarHeight());
-        mDrawer.setPadding(0,config.getStatusBarHeight(),0,config.getNavigationBarHeight());
+        if (CURRENT_VERSION > VERSION_KITKAT) {
+            mMainPage.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
+            mDrawer.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
+        }
+
+        //侧边栏
+        mHeaderImage = (ImageView) findViewById(R.id.header_img);
+        mHeaderImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void initViewPager(){
@@ -154,33 +166,12 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mFragmentList = new ArrayList<NewsListFragment>();
 
-
-//        Runnable r = new Runnable() {
-//            @Override
-//            public void run() {
-//                NewsItemBiz biz = new NewsItemBiz();
-//                int currentPage = 1;
-//                try {
-//                    List<NewsItem> newsItems = biz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage);
-//                    for (NewsItem item : newsItems) {
-//                        Log.i("SSS", item.toString());
-//
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }finally{
-//                }
-//            }
-//        };
-//        Thread th = new Thread(r);
-//        th.start();
-
-
-        NewsListFragment fragment1 = NewsListFragment.newInstance("LEIXING1");
-        NewsListFragment fragment2 = NewsListFragment.newInstance("LEIXING2");
-        NewsListFragment fragment3 = NewsListFragment.newInstance("LEIXING3");
-        NewsListFragment fragment4 = NewsListFragment.newInstance("LEIXING4");
-        NewsListFragment fragment5 = NewsListFragment.newInstance("LEIXING5");
+        //初始化fragment
+        NewsListFragment fragment1 = NewsListFragment.newInstance(NewsTypes.NEWS_TPYE_XXYW);
+        NewsListFragment fragment2 = NewsListFragment.newInstance(NewsTypes.NEWS_TPYE_XYKX);
+        NewsListFragment fragment3 = NewsListFragment.newInstance(NewsTypes.NEWS_TPYE_KJDT);
+        NewsListFragment fragment4 = NewsListFragment.newInstance(NewsTypes.NEWS_TPYE_MTJJ);
+        NewsListFragment fragment5 = NewsListFragment.newInstance(NewsTypes.NEWS_TPYE_BMXW);
 
         mFragmentList.add(fragment1);
         mFragmentList.add(fragment2);
@@ -188,6 +179,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mFragmentList.add(fragment4);
         mFragmentList.add(fragment5);
 
+        //初始化ViewPager
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),mFragmentList);
         mViewPager.setAdapter(adapter);
         mViewPager.setCurrentItem(0);

@@ -55,7 +55,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recyclerview,
                 viewGroup,false);
         ViewHolder holder = new ViewHolder(v);
-        holder.mTextView = (TextView) v.findViewById(R.id.text);
+        holder.mTitleTextView = (TextView) v.findViewById(R.id.titleTextView);
+        holder.mDateTextView = (TextView) v.findViewById(R.id.dateTextView);
         return holder;
     }
 
@@ -66,7 +67,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
      */
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        viewHolder.mTextView.setText(mNewsList.get(i).getTitle());
+        viewHolder.mTitleTextView.setText(mNewsList.get(i).getTitle());
+        //如果日期为空，则尝试使用新闻来源
+        viewHolder.mDateTextView.setText(mNewsList.get(i).getDate() == null ?
+                mNewsList.get(i).getSource():mNewsList.get(i).getDate());
     }
 
     @Override
@@ -75,7 +79,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTextView;
+        public TextView mTitleTextView;
+        public TextView mDateTextView;
         public ViewHolder(View v){
             super(v);
         }

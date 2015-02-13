@@ -1,3 +1,2 @@
-include ':app',':slidemenu_library'
+include ':app'
 
-project(':slidemenu_library').projectDir = new File('libs/slidemenu_library')

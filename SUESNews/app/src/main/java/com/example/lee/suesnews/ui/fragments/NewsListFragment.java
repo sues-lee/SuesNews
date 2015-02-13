@@ -38,7 +38,7 @@ public class NewsListFragment extends BaseFragment {
 
 
     //新闻类型
-    private String mNewsType;
+    private int mNewsType;
 
     private ObservableRecyclerView mRecyclerView;
     private MyRecyclerAdapter mAdapter;
@@ -57,10 +57,10 @@ public class NewsListFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static NewsListFragment newInstance(String newsType) {
+    public static NewsListFragment newInstance(int newsType) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_NEWS_TYPE, newsType);
+        args.putInt(ARG_NEWS_TYPE, newsType);
         fragment.setArguments(args);
         return fragment;
     }
@@ -140,7 +140,7 @@ public class NewsListFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mNewsType = getArguments().getString(ARG_NEWS_TYPE);
+            mNewsType = getArguments().getInt(ARG_NEWS_TYPE);
         }
         mCurrentPage = 1;
 
@@ -200,7 +200,7 @@ public class NewsListFragment extends BaseFragment {
             mNewsItems.clear();
             Log.i("LIXU","清空"+total);
         }
-        LoadDataTask loadDataTask = new LoadDataTask(adapter,forced);
+        LoadDataTask loadDataTask = new LoadDataTask(adapter,mNewsType,forced);
         loadDataTask.execute(currentPage);
     }
 
@@ -212,11 +212,13 @@ public class NewsListFragment extends BaseFragment {
 
         private MyRecyclerAdapter mAdapter;
         private boolean mIsForced;
+        private int mNewsType;
 
-        public LoadDataTask(MyRecyclerAdapter adapter,boolean forced) {
+        public LoadDataTask(MyRecyclerAdapter adapter,int newsType,boolean forced) {
             super();
             mAdapter = adapter;
             mIsForced = forced;
+            mNewsType = newsType;
         }
 
         /**
@@ -228,7 +230,7 @@ public class NewsListFragment extends BaseFragment {
         protected List<NewsItem> doInBackground(Integer... currentPage) {
 
             try {
-                return NewsItemBiz.getNewsItems(NewsTypes.NEWS_TPYE_XXYW,currentPage[0]);
+                return NewsItemBiz.getNewsItems(mNewsType,currentPage[0]);
             } catch (Exception e) {
                 e.printStackTrace();
                 return null;

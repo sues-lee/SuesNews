@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MyViewPagerAdapter extends FragmentPagerAdapter {
 
-    private final String[] TITLES = {"今日要闻","体育新闻","学院新闻","艺术新闻","快讯"};
+    private final String[] TITLES = {"学校要闻","校园快讯","科教动态","媒体聚焦","部门新闻"};
     List<NewsListFragment> mList;
     public MyViewPagerAdapter(FragmentManager fm, List<NewsListFragment> list) {
         super(fm);

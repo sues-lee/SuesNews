@@ -15,6 +15,16 @@ public class NewsItem {
     private String content; //文章内容
     private int pageNumber; //所在页码
 
+    private String source;  //媒体新闻的来源
+
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public int getPageNumber() {
         return pageNumber;

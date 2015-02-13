@@ -1,6 +1,7 @@
 package com.example.lee.suesnews.biz;
 
 import com.example.lee.suesnews.bean.NewsItem;
+import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.utils.HttpUtils;
 import com.example.lee.suesnews.utils.SuesApiUtils;
 
@@ -21,7 +22,15 @@ public class NewsItemBiz {
     private static final String BASE_TABLE_CLASS = "border1";  //包含新闻列表的table的class
     private static final String COLUMN_TABLE_CLASS = "columnStyle";    //包含新闻条目的table的class
     private static final String POST_TIME_CLASS = "posttime";        //包含新闻时间的class
+    private static final String NEWS_SOURCE_CLASS = "derivation";        //包含新闻来源媒体的class
 
+    /**
+     * 根据新闻类型和页码得到新闻列表
+     * @param newsType      新闻类型
+     * @param currentPage   页码
+     * @return              新闻列表
+     * @throws Exception
+     */
     public static List<NewsItem> getNewsItems(int newsType,int currentPage) throws Exception {
 
         String url = SuesApiUtils.getNewsUrl(newsType, currentPage);
@@ -42,8 +51,15 @@ public class NewsItemBiz {
             newsItem.setLink(SuesApiUtils.NEWS_URL_MAIN+contentUrl);
             newsItem.setTitle(link.child(0).text());    //设置新闻标题
 
-            Element postTime = columnTable.getElementsByClass(POST_TIME_CLASS).get(0);
-            newsItem.setDate(postTime.text());
+
+            if (newsType != NewsTypes.NEWS_TPYE_MTJJ){
+                Element postTime = columnTable.getElementsByClass(POST_TIME_CLASS).get(0);
+                newsItem.setDate(postTime.text());
+            }else{
+                Element source = columnTable.getElementsByClass(NEWS_SOURCE_CLASS).get(0);
+                newsItem.setSource(source.text());
+            }
+
             newsItem.setPageNumber(currentPage);
             //文章内容点击进入后再添加
 

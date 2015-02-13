@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="@dimen/card_margin"
+        android:layout_marginRight="@dimen/card_margin"
         android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
         >
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:layout_margin="@dimen/text_margin"
-
-        android:textSize="24sp"
-        android:textColor="@color/primary_text"
-
-        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:textSize="@dimen/text_size_title"
+                android:textColor="@color/primary_text"
+                tools:text="标题"
+                />
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/titleTextView"
+                android:gravity="end"
+                android:padding="@dimen/text_margin"
+                android:textSize="@dimen/text_size_body"
+                android:textColor="@color/secondary_text"
+                tools:text="2015-01-02"/>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

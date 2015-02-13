@@ -95,7 +95,6 @@ public class SuesApiUtils {
         return totalPage;
     }
 
-
     /**
      * 得到相应页面的url
      * @param newsType
@@ -129,6 +128,5 @@ public class SuesApiUtils {
         url += URL_END;
         return url;
     }
-
 
 }
