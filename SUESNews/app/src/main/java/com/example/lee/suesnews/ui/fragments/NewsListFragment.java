@@ -9,15 +9,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.biz.NewsItemBiz;
 import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.ui.MyRecyclerAdapter;
+import com.example.lee.suesnews.ui.RecyclerItemClickListener;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 
@@ -98,7 +101,7 @@ public class NewsListFragment extends BaseFragment {
 
             @Override
             public void onRefreshBegin(final PtrFrameLayout ptrFrameLayout) {
-                getData(mAdapter,mCurrentPage,true);
+                getNewsList(mAdapter, mCurrentPage, true);
                 ptrFrameLayout.refreshComplete();
             }
         });
@@ -112,12 +115,37 @@ public class NewsListFragment extends BaseFragment {
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(),new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        NewsItem item = mAdapter.getmNewsList().get(position);
+
+                        //TODO：打开显示新闻内容的Activity,把新闻的url作为参数传过去
+                        Intent startActivityIntent = new Intent();
+                        Bundle urlBundle = new Bundle();
+                        urlBundle.putString("url",item.getUrl());
+                        startActivityIntent.putExtras(urlBundle);
+                        
+
+
+//                        try {
+//                            NewsContent content = NewsItemBiz.getNewsContent(item.getUrl());
+//                            Log.i("ASD","url"+item.getUrl());
+//                            Log.i("ASD","title: "+content.getTitle());
+//                        } catch (Exception e) {
+//                            Log.i("ASD","eror: "+e);
+//                            e.printStackTrace();
+//                        }
+                    }
+                })
+            );
         //设置adapter
         mAdapter = new MyRecyclerAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
         //得到数据
-        getData(mAdapter,mCurrentPage,false);
+        getNewsList(mAdapter, mCurrentPage, false);
 
         //监听list滑动事件
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -142,16 +170,11 @@ public class NewsListFragment extends BaseFragment {
         if (getArguments() != null) {
             mNewsType = getArguments().getInt(ARG_NEWS_TYPE);
         }
-        mCurrentPage = 1;
+        mCurrentPage = 0;
 
     }
 
-    /**
-     * 根据类型得到新闻数据
-     */
-    private void getDummyData(){
 
-    }
 
     /**
      * 获取某一页的数据
@@ -159,13 +182,11 @@ public class NewsListFragment extends BaseFragment {
      * @param currentPage 页码
      * @param forced      是否强制刷新
      */
-    private void getData(MyRecyclerAdapter adapter,int currentPage,boolean forced) {
+    private void getNewsList(MyRecyclerAdapter adapter,int currentPage,boolean forced) {
         int total = mNewsItems.size();
-//        Log.i("LIXU","total"+total);
         //不强制刷新时，如果此页已存在则直接从内存中加载
         if (!forced && total>0 &&
                 (mNewsItems.get(total-1).getPageNumber() >= currentPage) ){
-//            Log.i("LIXU","没刷新");
             mAdapter.addNews(mNewsItems);
             mAdapter.notifyDataSetChanged();
             return;
@@ -180,6 +201,8 @@ public class NewsListFragment extends BaseFragment {
         LoadDataTask loadDataTask = new LoadDataTask(adapter,mNewsType,forced);
         loadDataTask.execute(currentPage);
     }
+
+
 
     /**
      * 加载新闻列表的任务

@@ -49,22 +49,12 @@ public class SuesApiUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int totalNewsItem = getIntFromString(htmlStr);  //新闻总条数
+        int totalNewsItem = StringUtils.getIntFromString(htmlStr);  //新闻总条数
         int totalPage = totalNewsItem/21 + (totalNewsItem%21==0?0:1); //新闻总页数
         return totalPage;
     }
 
-    /**
-     * 利用正则表达式提取字符串中的数字
-     * @param str 被提取的字符串
-     * @return 提取的数字
-     */
-    private static int getIntFromString(String str){
-        String regEx="[^0-9]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(str);
-        return Integer.parseInt(m.replaceAll("").trim());
-    }
+
 
     /**
      * 获得相应页面的新闻总页数

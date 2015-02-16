@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -45,6 +46,8 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.support.v7.widget.RecyclerView.*;
 
 
 public class MainActivity extends BaseActivity implements ObservableScrollViewCallbacks {
@@ -153,7 +156,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mHeaderImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //resume the click
             }
         });
     }
@@ -177,6 +180,9 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mFragmentList.add(fragment3);
         mFragmentList.add(fragment4);
         mFragmentList.add(fragment5);
+
+
+
 
         //初始化ViewPager
         MyViewPagerAdapter adapter = new MyViewPagerAdapter(getSupportFragmentManager(),mFragmentList);

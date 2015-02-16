@@ -1,9 +1,12 @@
 package com.example.lee.suesnews.biz;
 
+import android.util.Log;
+
 import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.utils.HttpUtils;
+import com.example.lee.suesnews.utils.StringUtils;
 import com.example.lee.suesnews.utils.SuesApiUtils;
 
 import org.jsoup.Jsoup;
@@ -20,10 +23,20 @@ import java.util.List;
  */
 public class NewsItemBiz {
 
+    //新闻列表页相关class
     private static final String BASE_TABLE_CLASS = "border1";  //包含新闻列表的table的class
     private static final String COLUMN_TABLE_CLASS = "columnStyle";    //包含新闻条目的table的class
     private static final String POST_TIME_CLASS = "posttime";        //包含新闻时间的class
     private static final String NEWS_SOURCE_CLASS = "derivation";        //包含新闻来源媒体的class
+
+    //新闻内容页相关class
+
+    private static final String NEWS_TITLE_CLASS = "biaoti";        //包含新闻标题td的class
+    private static final String NEWS_META_CLASS = "postmeta";       //包含新闻相关信息的p标签的class
+    private static final String NEWS_META_ITEM_CLASS = "meta_item";  //包含新闻相关信息条目的class
+    private static final String NEWS_CONTENT_CLASS = "MsoNormal";  //包含新闻内容的class
+    private static final String NEWS_ARTICLE_CLASS = "article";  //包含新闻内容td的class
+
 
     /**
      * 根据新闻类型和页码得到新闻列表
@@ -35,6 +48,7 @@ public class NewsItemBiz {
     public static List<NewsItem> getNewsItems(int newsType,int currentPage) throws Exception {
 
         String url = SuesApiUtils.getNewsUrl(newsType, currentPage);
+        Log.i("ASD","urlLIST:"+url);
         String htmlStr = HttpUtils.doGet(url);
 
         List<NewsItem> newsItems = new ArrayList<NewsItem>();
@@ -51,6 +65,7 @@ public class NewsItemBiz {
             Element link = columnTable.getElementsByTag("a").get(0);
             String contentUrl = link.attr("href");  //新闻内容链接
             newsItem.setUrl(SuesApiUtils.NEWS_URL_MAIN + contentUrl);
+
             newsItem.setTitle(link.child(0).text());    //设置新闻标题
 
 
@@ -77,7 +92,56 @@ public class NewsItemBiz {
      * @param url 新闻url
      * @return
      */
-    public static NewsContent getNewsContent(String url){
+    public static NewsContent getNewsContent(String url) throws Exception {
+//        Log.i("ASD","url:"+url);
+        //获取html
+        String htmlStr = HttpUtils.doGet(url);
+        Log.i("ASD","html"+htmlStr);
+        NewsContent news = new NewsContent();
+
+        Document document = Jsoup.parse(htmlStr);
+//        Log.i("ASD","html"+htmlStr);
+        //新闻url
+        news.setUrl(url);
+
+        //新闻标题
+        Element titleElement = document.getElementsByClass(NEWS_TITLE_CLASS).get(0);
+        news.setTitle(titleElement.text());
+
+        //包含新闻信息的p标签
+        Element metaElement = document.getElementsByClass(NEWS_META_CLASS).get(0);
+        //新闻时间
+        news.setDate(StringUtils.getDateFromString(metaElement.text()));
+
+        //新闻作者
+        Element authorElement = document.getElementsByClass(BASE_TABLE_CLASS).get(0);
+        Log.i("ASD","authorElement"+authorElement.text());
+        news.setAuthor(authorElement.text());
+
+        //新闻来源
+        Element sourceElement = document.getElementsByClass(BASE_TABLE_CLASS).get(1);
+        Log.i("ASD","sourceElement"+sourceElement.text());
+        news.setSource(sourceElement.text());
+
+        //新闻内容
+        Element contentElement = document.getElementsByClass(NEWS_CONTENT_CLASS).get(0);
+        Elements contentItems = contentElement.children();
+        //新闻内容都在p标签内，其中某些是图片
+        for(Element contentItem : contentItems){
+
+            Elements images = contentItem.getElementsByTag("img");
+            //获取图片
+            if (images.size() > 0){
+                for (Element image : images){
+                    news.addImgUrl(image.attr("src"));
+                }
+                continue;
+            }
+
+            news.addContent(contentItem.text());
+
+        }
+
 
         return null;
 

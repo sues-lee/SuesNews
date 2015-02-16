@@ -1,5 +1,6 @@
 package com.example.lee.suesnews.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,8 +16,16 @@ public class NewsContent {
     private String author;  //作者
     private String source;  //来源
     private String url;     //文章地址
+    private List<String> contents; //文章内容
     private List<String> imgUrls;   //新闻图片地址
 
+    public List<String> getContents() {
+        return contents;
+    }
+
+    public void setContents(List<String> contents) {
+        this.contents = contents;
+    }
 
     public String getUrl() {
         return url;
@@ -32,6 +41,20 @@ public class NewsContent {
 
     public void setImgUrls(List<String> imgUrls) {
         this.imgUrls = imgUrls;
+    }
+
+    public void addImgUrl(String imgUrl){
+        if (this.imgUrls == null){
+            imgUrls = new ArrayList<String>();
+        }
+        imgUrls.add(imgUrl);
+    }
+
+    public void addContent(String content){
+        if (this.contents == null){
+            contents = new ArrayList<String>();
+        }
+        contents.add(content);
     }
 
     public int getId() {
@@ -80,5 +103,20 @@ public class NewsContent {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    @Override
+    public String toString() {
+        return "NewsContent{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", type=" + type +
+                ", date='" + date + '\'' +
+                ", author='" + author + '\'' +
+                ", source='" + source + '\'' +
+                ", url='" + url + '\'' +
+                ", contents=" + contents +
+                ", imgUrls=" + imgUrls +
+                '}';
     }
 }

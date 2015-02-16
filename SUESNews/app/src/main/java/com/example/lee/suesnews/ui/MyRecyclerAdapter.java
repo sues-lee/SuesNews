@@ -3,12 +3,16 @@ package com.example.lee.suesnews.ui;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
+import com.example.lee.suesnews.biz.NewsItemBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +58,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_recyclerview,
                 viewGroup,false);
-        ViewHolder holder = new ViewHolder(v);
-        holder.mTitleTextView = (TextView) v.findViewById(R.id.titleTextView);
-        holder.mDateTextView = (TextView) v.findViewById(R.id.dateTextView);
-        return holder;
+        TextView titleTextView = (TextView) v.findViewById(R.id.titleTextView);
+        TextView dateTextView = (TextView) v.findViewById(R.id.dateTextView);
+        return new ViewHolder(v,titleTextView,dateTextView);
     }
 
     /**
@@ -71,6 +74,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         //如果日期为空，则尝试使用新闻来源
         viewHolder.mDateTextView.setText(mNewsList.get(i).getDate() == null ?
                 mNewsList.get(i).getSource():mNewsList.get(i).getDate());
+        viewHolder.bindData(mNewsList.get(i));
     }
 
     @Override
@@ -78,11 +82,47 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return mNewsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView mTitleTextView;
-        public TextView mDateTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+
+        private NewsItem mNewsItem;
+
         public ViewHolder(View v){
             super(v);
+        }
+
+        public ViewHolder(View v,TextView titleTextView,TextView dateTextView){
+            this(v);
+            v.setOnClickListener(this);
+            mTitleTextView = titleTextView;
+            mDateTextView = dateTextView;
+        }
+
+
+        /**
+         * 将新闻列表绑定至ViewHolder
+         * @param newsItem     新闻列表
+         */
+        public void bindData(NewsItem newsItem){
+            mTitleTextView.setText(newsItem.getTitle());
+            //如果日期为空，则尝试使用新闻来源
+            mDateTextView.setText(newsItem.getDate() == null ?
+                    newsItem.getSource():newsItem.getDate());
+            mNewsItem = newsItem;
+
+        }
+
+        @Override
+        public void onClick(View view) {
+//            int pos = getPosition();
+            try {
+                NewsContent content = NewsItemBiz.getNewsContent(mNewsItem.getUrl());
+//                Toast.makeText(view.getParent(),content.getTitle(),Toast.LENGTH_LONG).show();
+                Log.i("ASD",content.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

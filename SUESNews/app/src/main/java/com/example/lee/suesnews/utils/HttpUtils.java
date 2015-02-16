@@ -25,6 +25,9 @@ public class HttpUtils {
      */
     public static String doGet(String urlStr) throws Exception
     {
+        if (urlStr == ""){
+            return null;
+        }
         URL url;
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -59,6 +62,7 @@ public class HttpUtils {
         } catch (Exception e)
         {
             e.printStackTrace();
+
         } finally
         {
             try
