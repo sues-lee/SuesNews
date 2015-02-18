@@ -18,7 +18,7 @@
     <dimen name="card_margin">8dp</dimen>
     <dimen name="card_height">8dp</dimen>
 
-    <dimen name="text_size_title">24sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_title_bigger">32sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_body">14sp</dimen>

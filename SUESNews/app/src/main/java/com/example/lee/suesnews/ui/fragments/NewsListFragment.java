@@ -20,6 +20,7 @@ import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.biz.NewsItemBiz;
 import com.example.lee.suesnews.common.NewsTypes;
 import com.example.lee.suesnews.ui.MyRecyclerAdapter;
+import com.example.lee.suesnews.ui.NewsContentActivity;
 import com.example.lee.suesnews.ui.RecyclerItemClickListener;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -122,11 +123,13 @@ public class NewsListFragment extends BaseFragment {
                         NewsItem item = mAdapter.getmNewsList().get(position);
 
                         //TODO：打开显示新闻内容的Activity,把新闻的url作为参数传过去
-                        Intent startActivityIntent = new Intent();
+                        Intent startActivityIntent = new Intent(getActivity(),NewsContentActivity.class);
                         Bundle urlBundle = new Bundle();
                         urlBundle.putString("url",item.getUrl());
                         startActivityIntent.putExtras(urlBundle);
-                        
+                        startActivity(startActivityIntent);
+                        getActivity().overridePendingTransition(R.anim.activity_fade_in,
+                                R.anim.no_anim);
 
 
 //                        try {

@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.example.lee.suesnews.R;
 
-public class NewsContentActivity extends Activity {
+public class NewsContentActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,4 +37,6 @@ public class NewsContentActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

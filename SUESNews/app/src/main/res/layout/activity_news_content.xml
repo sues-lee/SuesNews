@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.lee.suesnews.ui.NewsContentActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <include
+        layout="@layout/common_toolbar"/>
 
 </RelativeLayout>

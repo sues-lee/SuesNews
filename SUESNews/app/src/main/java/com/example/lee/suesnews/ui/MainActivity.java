@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     }
 
     private void initViews() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar2);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("My Title");
         setSupportActionBar(mToolbar);
 
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mMaterialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
             @Override
             public int getToolbarViewId() {
-                return R.id.toolbar2;
+                return R.id.toolbar;
             }
         };
         mMaterialMenu.setNeverDrawTouch(true);
@@ -130,16 +130,16 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             }
         });
 
-        //使用tintManager设置状态栏的颜色
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        tintManager.setNavigationBarTintEnabled(true);
-        // set a custom tint color for all system bars
-        tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
-
-        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+//        //使用tintManager设置状态栏的颜色
+//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//        // enable status bar tint
+//        tintManager.setStatusBarTintEnabled(true);
+//        // enable navigation bar tint
+//        tintManager.setNavigationBarTintEnabled(true);
+//        // set a custom tint color for all system bars
+//        tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
+//
+//        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
 
 
         mContent = (ViewGroup) findViewById(R.id.content);
@@ -147,8 +147,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mMainPage = (ViewGroup) findViewById(R.id.main_page);
         //因为顶栏透明，要让出顶栏和底栏空间
         if (CURRENT_VERSION >= VERSION_KITKAT) {
-            mMainPage.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
-            mDrawer.setPadding(0, config.getStatusBarHeight(), 0, config.getNavigationBarHeight());
+            mMainPage.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
+            mDrawer.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
         }
 
         //侧边栏
@@ -309,30 +309,5 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     }
 
 
-    /**
-     * 获取状态栏的高度
-     * @return
-     */
-    private int getStatusBarHeight(){
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height","dimen","android");
-        if (resourceId>0){
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    /**
-     * 获取navigation bar的高度
-     * @return
-     */
-    private int getNavigationBarHeight(){
-        int result = 0;
-        int resourceId = getResources().getIdentifier("navigation_bar_height","dimen","android");
-        if (resourceId>0){
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
 
 }
