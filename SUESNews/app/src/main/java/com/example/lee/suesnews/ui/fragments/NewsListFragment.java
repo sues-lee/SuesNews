@@ -126,20 +126,11 @@ public class NewsListFragment extends BaseFragment {
                         Intent startActivityIntent = new Intent(getActivity(),NewsContentActivity.class);
                         Bundle urlBundle = new Bundle();
                         urlBundle.putString("url",item.getUrl());
-                        startActivityIntent.putExtras(urlBundle);
+                        startActivityIntent.putExtra("key",urlBundle);
                         startActivity(startActivityIntent);
                         getActivity().overridePendingTransition(R.anim.activity_fade_in,
                                 R.anim.no_anim);
 
-
-//                        try {
-//                            NewsContent content = NewsItemBiz.getNewsContent(item.getUrl());
-//                            Log.i("ASD","url"+item.getUrl());
-//                            Log.i("ASD","title: "+content.getTitle());
-//                        } catch (Exception e) {
-//                            Log.i("ASD","eror: "+e);
-//                            e.printStackTrace();
-//                        }
                     }
                 })
             );
@@ -201,7 +192,7 @@ public class NewsListFragment extends BaseFragment {
             mNewsItems.clear();
             Log.i("LIXU","清空"+total);
         }
-        LoadDataTask loadDataTask = new LoadDataTask(adapter,mNewsType,forced);
+        LoadNewsListTask loadDataTask = new LoadNewsListTask(adapter,mNewsType,forced);
         loadDataTask.execute(currentPage);
     }
 
@@ -211,13 +202,13 @@ public class NewsListFragment extends BaseFragment {
      * 加载新闻列表的任务
      *
      */
-    class LoadDataTask extends AsyncTask<Integer, Integer,List<NewsItem> >{
+    class LoadNewsListTask extends AsyncTask<Integer, Integer,List<NewsItem> >{
 
         private MyRecyclerAdapter mAdapter;
         private boolean mIsForced;
         private int mNewsType;
 
-        public LoadDataTask(MyRecyclerAdapter adapter,int newsType,boolean forced) {
+        public LoadNewsListTask(MyRecyclerAdapter adapter,int newsType,boolean forced) {
             super();
             mAdapter = adapter;
             mIsForced = forced;
@@ -270,7 +261,6 @@ public class NewsListFragment extends BaseFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
         }
     }
 

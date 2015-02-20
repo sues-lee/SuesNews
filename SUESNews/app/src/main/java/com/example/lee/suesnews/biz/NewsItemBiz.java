@@ -34,7 +34,6 @@ public class NewsItemBiz {
     private static final String NEWS_TITLE_CLASS = "biaoti";        //包含新闻标题td的class
     private static final String NEWS_META_CLASS = "postmeta";       //包含新闻相关信息的p标签的class
     private static final String NEWS_META_ITEM_CLASS = "meta_item";  //包含新闻相关信息条目的class
-    private static final String NEWS_CONTENT_CLASS = "MsoNormal";  //包含新闻内容的class
     private static final String NEWS_ARTICLE_CLASS = "article";  //包含新闻内容td的class
 
 
@@ -96,7 +95,7 @@ public class NewsItemBiz {
 //        Log.i("ASD","url:"+url);
         //获取html
         String htmlStr = HttpUtils.doGet(url);
-        Log.i("ASD","html"+htmlStr);
+//        Log.i("ASD","html"+htmlStr);
         NewsContent news = new NewsContent();
 
         Document document = Jsoup.parse(htmlStr);
@@ -106,25 +105,27 @@ public class NewsItemBiz {
 
         //新闻标题
         Element titleElement = document.getElementsByClass(NEWS_TITLE_CLASS).get(0);
+        Log.i("ASD","Title: "+titleElement.text());
         news.setTitle(titleElement.text());
 
         //包含新闻信息的p标签
         Element metaElement = document.getElementsByClass(NEWS_META_CLASS).get(0);
+        Log.i("ASD","metaElement"+metaElement.text());
         //新闻时间
         news.setDate(StringUtils.getDateFromString(metaElement.text()));
 
         //新闻作者
-        Element authorElement = document.getElementsByClass(BASE_TABLE_CLASS).get(0);
+        Element authorElement = document.getElementsByClass(NEWS_META_ITEM_CLASS).get(0);
         Log.i("ASD","authorElement"+authorElement.text());
         news.setAuthor(authorElement.text());
 
         //新闻来源
-        Element sourceElement = document.getElementsByClass(BASE_TABLE_CLASS).get(1);
+        Element sourceElement = document.getElementsByClass(NEWS_META_ITEM_CLASS).get(2);
         Log.i("ASD","sourceElement"+sourceElement.text());
         news.setSource(sourceElement.text());
 
         //新闻内容
-        Element contentElement = document.getElementsByClass(NEWS_CONTENT_CLASS).get(0);
+        Element contentElement = document.getElementsByClass(NEWS_ARTICLE_CLASS).get(0);
         Elements contentItems = contentElement.children();
         //新闻内容都在p标签内，其中某些是图片
         for(Element contentItem : contentItems){
@@ -137,13 +138,16 @@ public class NewsItemBiz {
                 }
                 continue;
             }
-
+            if(contentItem.text() == ""){
+                continue;
+            }
+            Log.i("ASD","contentText"+contentItem.text());
             news.addContent(contentItem.text());
 
         }
 
 
-        return null;
+        return news;
 
     }
 }

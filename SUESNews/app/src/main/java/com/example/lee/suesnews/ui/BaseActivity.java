@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -16,9 +17,13 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  */
 public class BaseActivity extends ActionBarActivity {
 
+    protected Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         //使用tintManager设置状态栏的颜色
         SystemBarTintManager tintManager = new SystemBarTintManager(this);
         // enable status bar tint
@@ -28,7 +33,7 @@ public class BaseActivity extends ActionBarActivity {
         // set a custom tint color for all system bars
         tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
 
-        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+//        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
     }
 
     /**

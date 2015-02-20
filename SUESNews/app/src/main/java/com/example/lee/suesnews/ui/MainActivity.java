@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     private ViewPager mViewPager;
     //新闻列表
     private List<NewsListFragment> mFragmentList;
-    private Toolbar mToolbar;
+
     private ViewGroup mMainPage;
     private DrawerLayout mDrawerLayout;
     private ViewGroup mDrawer;
@@ -76,12 +76,12 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         initViews();
 
         initViewPager();
-
     }
 
     private void initViews() {
@@ -130,17 +130,6 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             }
         });
 
-//        //使用tintManager设置状态栏的颜色
-//        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//        // enable status bar tint
-//        tintManager.setStatusBarTintEnabled(true);
-//        // enable navigation bar tint
-//        tintManager.setNavigationBarTintEnabled(true);
-//        // set a custom tint color for all system bars
-//        tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
-//
-//        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
-
 
         mContent = (ViewGroup) findViewById(R.id.content);
         mDrawer = (ViewGroup) findViewById(R.id.drawer);
@@ -180,8 +169,6 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mFragmentList.add(fragment3);
         mFragmentList.add(fragment4);
         mFragmentList.add(fragment5);
-
-
 
 
         //初始化ViewPager

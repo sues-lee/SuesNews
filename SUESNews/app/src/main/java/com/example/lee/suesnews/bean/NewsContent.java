@@ -23,6 +23,18 @@ public class NewsContent {
         return contents;
     }
 
+    /**
+     * 得到格式化的新闻内容
+     * @return
+     */
+    public String getFormatedContent(){
+        String result = new String();
+        for(String item : contents){
+            result += "\t" + item + "\n\n";
+        }
+        return result;
+    }
+
     public void setContents(List<String> contents) {
         this.contents = contents;
     }
