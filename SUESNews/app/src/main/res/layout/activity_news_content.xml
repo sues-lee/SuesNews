@@ -17,28 +17,51 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
-                <TextView
-                    android:id="@+id/title_text_view"
-                    android:layout_width="match_parent"
+                <RelativeLayout
+                    android:id="@+id/title_layout"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/colorPrimary"
-                    android:textSize="28sp"
-                    android:paddingTop="120dp"
-                    android:paddingLeft="24dp"
-                    android:paddingStart="24dp"
-                    android:paddingRight="24dp"
-                    android:paddingEnd="24dp"
-                    android:paddingBottom="24dp"
-                    tools:text="TEST"
-                    />
+                    android:layout_marginBottom="@dimen/view_margin"
+                    >
+                    <TextView
+                        android:id="@+id/title_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:layout_marginTop="120dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="16dp"
+                        tools:text="TEST"
+                        />
+                    <TextView
+                        android:id="@+id/title_date"
+                        android:layout_below="@+id/title_text_view"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="12dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/secondary_text"
+                        tools:text="时间：2015/01/01  "/>
+                </RelativeLayout>
                 <TextView
                     android:id="@+id/content_text_view"
-                    android:layout_below="@+id/title_text_view"
+                    android:layout_below="@+id/title_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_size_normal"
-                    android:padding="16dp"
+                    android:padding="@dimen/text_margin"
                     android:lineSpacingMultiplier="1.5"
+                    tools:text="adsdsadadas"
                     />
             </RelativeLayout>
         </ScrollView>

@@ -31,6 +31,7 @@ public class NewsContentActivity extends BaseActivity {
 
     private TextView mTitleTextView;        //文章标题
     private TextView mContextTextView;      //文章内容
+    private TextView mTitleDateTextView;      //文章日期
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class NewsContentActivity extends BaseActivity {
 
     private void init() {
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("My Title");
+        mToolbar.setTitle("新闻内容");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +70,7 @@ public class NewsContentActivity extends BaseActivity {
 
         mTitleTextView = (TextView) findViewById(R.id.title_text_view);
         mContextTextView = (TextView) findViewById(R.id.content_text_view);
+        mTitleDateTextView = (TextView) findViewById(R.id.title_date);
     }
 
 
@@ -143,6 +145,7 @@ public class NewsContentActivity extends BaseActivity {
             mNewsContent = newsContent;
             //将内容载入界面
             mTitleTextView.setText(newsContent.getTitle());
+            mTitleDateTextView.setText(newsContent.getDate());
             mContextTextView.setText(newsContent.getFormatedContent());
         }
 

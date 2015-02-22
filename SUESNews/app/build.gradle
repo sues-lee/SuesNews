@@ -17,7 +17,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
@@ -32,5 +31,8 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
     compile 'com.jpardogo.materialtabstrip:library:1.0.8'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
-    compile 'com.joanzapata.android:android-iconify:1.0.9'
+    compile 'be.webelite:ion-iconview:1.0.+@aar'
+}
+repositories {
+    maven { url 'https://github.com/MarsVard/IonIconView/raw/master/maven' }
 }

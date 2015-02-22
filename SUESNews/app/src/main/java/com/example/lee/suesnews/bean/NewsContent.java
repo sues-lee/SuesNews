@@ -30,7 +30,7 @@ public class NewsContent {
     public String getFormatedContent(){
         String result = new String();
         for(String item : contents){
-            result += "\t" + item + "\n\n";
+            result += "\t\t" + item + "\n\n";
         }
         return result;
     }

@@ -38,41 +38,63 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/view_margin">
-                <IconTextView
-                    android:text="{fa-heart}Android"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/list_item_height"
-                    android:layout_marginLeft="@dimen/text_margin"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginStart="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/text_margin"
-                    android:textSize="@dimen/text_size_title"
-                    android:textColor="@color/primary_text"
-                    android:gravity="center_vertical"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <be.webelite.ion.IconView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:name="ion_heart"
+                        android:textSize="@dimen/text_size_title_bigger"
+                        android:textColor="?attr/colorPrimary"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginStart="@dimen/text_margin"
+                        android:layout_centerVertical="true"
+                        />
+                    <TextView
+                        android:text="收藏"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/list_item_height"
+                        android:layout_marginLeft="@dimen/menu_margin_left"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:layout_marginStart="@dimen/text_margin"
+                        android:layout_marginEnd="@dimen/text_margin"
+                        android:textSize="@dimen/text_size_title"
+                        android:textColor="@color/primary_text"
+                        android:gravity="center_vertical"
 
-                    />
-
-                <IconTextView
-                    android:text="{fa-android}Android"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/list_item_height"
-                    android:layout_marginLeft="@dimen/text_margin"
-                    android:layout_marginRight="@dimen/text_margin"
-                    android:layout_marginStart="@dimen/text_margin"
-                    android:layout_marginEnd="@dimen/text_margin"
-                    android:textSize="@dimen/text_size_title"
-                    android:textColor="@color/primary_text"
-                    android:gravity="center_vertical"
-                    />
-
+                        />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <be.webelite.ion.IconView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:name="ion_home"
+                        android:textSize="@dimen/text_size_title_bigger"
+                        android:textColor="?attr/colorPrimary"
+                        android:layout_marginLeft="@dimen/text_margin"
+                        android:layout_marginStart="@dimen/text_margin"
+                        android:layout_centerVertical="true"
+                        />
+                    <TextView
+                        android:text="关于"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/list_item_height"
+                        android:layout_marginLeft="@dimen/menu_margin_left"
+                        android:layout_marginRight="@dimen/text_margin"
+                        android:layout_marginStart="@dimen/text_margin"
+                        android:layout_marginEnd="@dimen/text_margin"
+                        android:textSize="@dimen/text_size_title"
+                        android:textColor="@color/primary_text"
+                        android:gravity="center_vertical"
+                        />
+                </RelativeLayout>
             </LinearLayout>
-
-        <!--</RelativeLayout>-->
-
-
     </ScrollView>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/bottom_drawer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_height"
@@ -80,14 +102,26 @@
         android:background="@color/light_primary_color"
         android:layout_alignParentBottom="true"
         >
+        <be.webelite.ion.IconView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:name="ion_home"
+            android:textSize="@dimen/text_size_title"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginLeft="@dimen/text_margin"
+            android:layout_marginStart="@dimen/text_margin"
+            android:layout_centerVertical="true"
+            />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="设置"
             android:textSize="@dimen/text_size_normal"
-            android:layout_margin="@dimen/text_margin"
+            android:layout_marginLeft="@dimen/menu_margin_left"
+            android:layout_marginStart="@dimen/menu_margin_left"
+            android:gravity="center_vertical"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>
 

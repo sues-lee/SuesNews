@@ -113,6 +113,7 @@ public class NewsItemBiz {
         Log.i("ASD","metaElement"+metaElement.text());
         //新闻时间
         news.setDate(StringUtils.getDateFromString(metaElement.text()));
+        Log.i("ASDDATE","date:  "+StringUtils.getDateFromString(metaElement.text()));
 
         //新闻作者
         Element authorElement = document.getElementsByClass(NEWS_META_ITEM_CLASS).get(0);
@@ -138,10 +139,10 @@ public class NewsItemBiz {
                 }
                 continue;
             }
-            if(contentItem.text() == ""){
+            if(contentItem.text().trim().length()<=1){
                 continue;
             }
-            Log.i("ASD","contentText"+contentItem.text());
+            Log.i("ASD","contentText"+contentItem.text() + " length: " + contentItem.text().trim().length());
             news.addContent(contentItem.text());
 
         }

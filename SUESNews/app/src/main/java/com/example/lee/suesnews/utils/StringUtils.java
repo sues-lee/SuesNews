@@ -26,10 +26,13 @@ public class StringUtils {
      * @return 提取的日期，格式为YYYY-MM-DD
      */
     public static String getDateFromString(String str){
-        String regEx="[0-9]{4}-[0-9]{2}-[0-9]{2}]";
+        String regEx="[0-9]{4}-[0-9]{2}-[0-9]{2}";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
-        return m.replaceAll("").trim();
+        if (m.find()){
+            return m.group();
+        }
+        return null;
     }
 
 
