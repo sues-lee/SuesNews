@@ -15,22 +15,30 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="140dp">
+            <ImageView
+                android:id="@+id/title_image"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/drawer_header"/>
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/title_image"
+                android:layout_toEndOf="@+id/title_image"
                 android:layout_margin="@dimen/text_margin"
                 android:textSize="@dimen/text_size_title"
                 android:textColor="@color/primary_text"
-                tools:text="标题"
+                tools:text="这是标题"
                 />
             <TextView
                 android:id="@+id/dateTextView"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titleTextView"
-                android:gravity="end"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
                 android:padding="@dimen/text_margin"
                 android:textSize="@dimen/text_size_body"
                 android:textColor="@color/secondary_text"

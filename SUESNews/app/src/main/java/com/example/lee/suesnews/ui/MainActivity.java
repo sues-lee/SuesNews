@@ -7,6 +7,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.balysv.materialmenu.MaterialMenuDrawable;
@@ -73,6 +77,15 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     //侧边栏头部图片
     private ImageView mHeaderImage;
 
+    //标识是否点击过一次back退出
+    private boolean mIsExit = false;
+    private Handler mExitHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mIsExit = false;
+        }
+    };
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +233,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     }
 
     @Override
-    public void onScrollChanged(int i, boolean b, boolean b2) {
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
 
     }
 
@@ -295,6 +308,27 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         animator.start();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
-
+    /**
+     * 实现点击两次退出程序
+     */
+    private void exit(){
+        if (mIsExit){
+            finish();
+            System.exit(0);
+        }else {
+            mIsExit = true;
+            Toast.makeText(getApplicationContext(),R.string.click_to_exit,Toast.LENGTH_SHORT).show();
+            //两秒内不点击back则重置mIsExit
+            mExitHandler.sendEmptyMessageDelayed(0,2000);
+        }
+    }
 }

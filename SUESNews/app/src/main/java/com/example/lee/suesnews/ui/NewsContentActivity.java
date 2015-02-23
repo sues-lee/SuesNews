@@ -67,7 +67,6 @@ public class NewsContentActivity extends BaseActivity {
         mMaterialMenu.setState(intToState(1));
 
 
-
         mTitleTextView = (TextView) findViewById(R.id.title_text_view);
         mContextTextView = (TextView) findViewById(R.id.content_text_view);
         mTitleDateTextView = (TextView) findViewById(R.id.title_date);

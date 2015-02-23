@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.ViewConfiguration;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.lee.suesnews.R;
@@ -29,7 +32,9 @@ public class BaseActivity extends ActionBarActivity {
         // enable status bar tint
         tintManager.setStatusBarTintEnabled(true);
         // enable navigation bar tint
-        tintManager.setNavigationBarTintEnabled(true);
+        if (isHasNavigationBar()) {
+            tintManager.setNavigationBarTintEnabled(true);
+        }
         // set a custom tint color for all system bars
         tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
 
@@ -116,5 +121,16 @@ public class BaseActivity extends ActionBarActivity {
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    /**
+     * 检查是否有虚拟按键
+     * @return
+     */
+    protected boolean isHasNavigationBar(){
+        //通过是否有物理按键来确定是否有虚拟按键
+        boolean hasMenuKey = ViewConfiguration.get(this).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+        return !(hasBackKey && hasMenuKey);
     }
 }

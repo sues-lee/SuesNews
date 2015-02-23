@@ -40,7 +40,7 @@
                 android:layout_marginTop="@dimen/view_margin">
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/list_item_height">
                     <be.webelite.ion.IconView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/list_item_height">
                     <be.webelite.ion.IconView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
