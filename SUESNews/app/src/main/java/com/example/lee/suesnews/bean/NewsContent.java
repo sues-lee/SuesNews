@@ -1,5 +1,7 @@
 package com.example.lee.suesnews.bean;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +12,21 @@ import java.util.List;
 public class NewsContent {
 
     private int id;
+    @DatabaseField
     private String title;   //新闻标题
+    @DatabaseField
     private int type;       //新闻类型
+    @DatabaseField
     private String date;    //日期
+    @DatabaseField
     private String author;  //作者
+    @DatabaseField
     private String source;  //来源
+    @DatabaseField
     private String url;     //文章地址
+//    @DatabaseField
     private List<String> contents; //文章内容
+
     private List<String> imgUrls;   //新闻图片地址
 
     public List<String> getContents() {

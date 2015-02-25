@@ -32,6 +32,7 @@ dependencies {
     compile 'com.jpardogo.materialtabstrip:library:1.0.8'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
     compile 'be.webelite:ion-iconview:1.0.+@aar'
+    compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
 }
 repositories {
     maven { url 'https://github.com/MarsVard/IonIconView/raw/master/maven' }

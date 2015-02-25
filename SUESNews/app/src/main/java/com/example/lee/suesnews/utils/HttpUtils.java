@@ -1,5 +1,11 @@
 package com.example.lee.suesnews.utils;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import org.apache.http.conn.ClientConnectionManager;
+
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -163,5 +169,16 @@ public class HttpUtils {
         return result;
     }
 
+    /**
+     * 当前是否有网络连接
+     * @return
+     */
+    public static boolean IsNetAvailable(Context context){
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        return (info != null && info.isConnected());
+
+    }
 
 }

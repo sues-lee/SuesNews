@@ -12,20 +12,23 @@ import android.view.ViewConfiguration;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.biz.NewsItemBiz;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 
 /**
- *
+ *基础Activity
  */
 public class BaseActivity extends ActionBarActivity {
 
     protected Toolbar mToolbar;
+//    protected NewsItemBiz mNewsItemBiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        mNewsItemBiz = new NewsItemBiz(this);
 
         //使用tintManager设置状态栏的颜色
         SystemBarTintManager tintManager = new SystemBarTintManager(this);

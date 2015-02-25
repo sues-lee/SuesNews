@@ -2,6 +2,7 @@ package com.example.lee.suesnews.ui.fragments;
 
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,9 +20,11 @@ import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.biz.NewsItemBiz;
 import com.example.lee.suesnews.common.NewsTypes;
+import com.example.lee.suesnews.dao.NewsItemDao;
 import com.example.lee.suesnews.ui.MyRecyclerAdapter;
 import com.example.lee.suesnews.ui.NewsContentActivity;
 import com.example.lee.suesnews.ui.RecyclerItemClickListener;
+import com.example.lee.suesnews.utils.HttpUtils;
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 
@@ -56,6 +59,8 @@ public class NewsListFragment extends BaseFragment {
 
     //缓存
     private List<NewsItem> mNewsItems = new ArrayList<NewsItem>();
+//    //数据库访问
+//    private NewsItemDao mNewsItemDao;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -122,7 +127,7 @@ public class NewsListFragment extends BaseFragment {
 
                         NewsItem item = mAdapter.getmNewsList().get(position);
 
-                        //TODO：打开显示新闻内容的Activity,把新闻的url作为参数传过去
+                        //打开显示新闻内容的Activity,把新闻的url作为参数传过去
                         Intent startActivityIntent = new Intent(getActivity(),NewsContentActivity.class);
                         Bundle urlBundle = new Bundle();
                         urlBundle.putString("url",item.getUrl());
@@ -224,9 +229,12 @@ public class NewsListFragment extends BaseFragment {
         protected List<NewsItem> doInBackground(Integer... currentPage) {
 
             try {
-                return NewsItemBiz.getNewsItems(mNewsType,currentPage[0]);
+                 boolean netAvailable = HttpUtils.IsNetAvailable(getActivity());
+                 return mNewsItemBiz.getNewsItems(mNewsType, currentPage[0],netAvailable);
+
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.i("ASDNET","neterror :"+e);
                 return null;
             }
 

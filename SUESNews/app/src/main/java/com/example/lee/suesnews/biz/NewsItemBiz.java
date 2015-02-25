@@ -1,10 +1,12 @@
 package com.example.lee.suesnews.biz;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.common.NewsTypes;
+import com.example.lee.suesnews.dao.NewsItemDao;
 import com.example.lee.suesnews.utils.HttpUtils;
 import com.example.lee.suesnews.utils.StringUtils;
 import com.example.lee.suesnews.utils.SuesApiUtils;
@@ -36,18 +38,34 @@ public class NewsItemBiz {
     private static final String NEWS_META_ITEM_CLASS = "meta_item";  //包含新闻相关信息条目的class
     private static final String NEWS_ARTICLE_CLASS = "article";  //包含新闻内容td的class
 
+    private Context mContext;
+
+    private NewsItemDao mNewsItemDao;
+
+    public NewsItemBiz(Context context) {
+        mContext = context;
+        mNewsItemDao = new NewsItemDao(context);
+    }
 
     /**
      * 根据新闻类型和页码得到新闻列表
      * @param newsType      新闻类型
      * @param currentPage   页码
+     * @param netAvailable  当前是否有网络
      * @return              新闻列表
      * @throws Exception
      */
-    public static List<NewsItem> getNewsItems(int newsType,int currentPage) throws Exception {
+    public List<NewsItem> getNewsItems(int newsType,int currentPage,boolean netAvailable) throws Exception {
+        //TODO:.有网络时查看数据是否过期;
+
+        //当无网络时加载数据库中数据
+        Log.i("ASDNET","netAvailable:"+netAvailable);
+        if (!netAvailable){
+            return mNewsItemDao.searchByPageAndType(currentPage,newsType);
+        }
 
         String url = SuesApiUtils.getNewsUrl(newsType, currentPage);
-        Log.i("ASD","urlLIST:"+url);
+
         String htmlStr = HttpUtils.doGet(url);
 
         List<NewsItem> newsItems = new ArrayList<NewsItem>();
@@ -83,6 +101,9 @@ public class NewsItemBiz {
 
         }
 
+        for(NewsItem item : newsItems) {
+            mNewsItemDao.createOrUpdate(item);
+        }
         return newsItems;
     }
 
