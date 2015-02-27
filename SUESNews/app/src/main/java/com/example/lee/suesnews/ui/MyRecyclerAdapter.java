@@ -115,14 +115,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
         @Override
         public void onClick(View view) {
-//            int pos = getPosition();
-            try {
-                NewsContent content = NewsItemBiz.getNewsContent(mNewsItem.getUrl());
-//                Toast.makeText(view.getParent(),content.getTitle(),Toast.LENGTH_LONG).show();
-                Log.i("ASD",content.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
     }
 }

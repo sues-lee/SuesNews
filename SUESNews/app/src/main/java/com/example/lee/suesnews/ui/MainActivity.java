@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         }
     };
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

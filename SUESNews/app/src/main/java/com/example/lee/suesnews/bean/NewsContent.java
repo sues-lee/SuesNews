@@ -3,6 +3,7 @@ package com.example.lee.suesnews.bean;
 import com.j256.ormlite.field.DatabaseField;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ import java.util.List;
  */
 public class NewsContent {
 
+    @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
     private String title;   //新闻标题
@@ -22,32 +24,26 @@ public class NewsContent {
     private String author;  //作者
     @DatabaseField
     private String source;  //来源
-    @DatabaseField
+    @DatabaseField(canBeNull = false)
     private String url;     //文章地址
 //    @DatabaseField
-    private List<String> contents; //文章内容
-
+//    private Date updateTime;//更新时间
+    @DatabaseField
+    private String content; //文章内容
+//    @DatabaseField
     private List<String> imgUrls;   //新闻图片地址
 
-    public List<String> getContents() {
-        return contents;
-    }
+
 
     /**
      * 得到格式化的新闻内容
      * @return
      */
     public String getFormatedContent(){
-        String result = new String();
-        for(String item : contents){
-            result += "\t\t" + item + "\n\n";
-        }
-        return result;
+
+        return content;
     }
 
-    public void setContents(List<String> contents) {
-        this.contents = contents;
-    }
 
     public String getUrl() {
         return url;
@@ -73,10 +69,7 @@ public class NewsContent {
     }
 
     public void addContent(String content){
-        if (this.contents == null){
-            contents = new ArrayList<String>();
-        }
-        contents.add(content);
+        content += "\t\t" + content + "\n\n";
     }
 
     public int getId() {
@@ -137,7 +130,7 @@ public class NewsContent {
                 ", author='" + author + '\'' +
                 ", source='" + source + '\'' +
                 ", url='" + url + '\'' +
-                ", contents=" + contents +
+                ", contents=" + content +
                 ", imgUrls=" + imgUrls +
                 '}';
     }

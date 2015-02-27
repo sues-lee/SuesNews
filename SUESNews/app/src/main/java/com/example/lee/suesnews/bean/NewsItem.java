@@ -2,6 +2,8 @@ package com.example.lee.suesnews.bean;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.util.Date;
+
 /**
  * 新闻实体类
  * Created by Administrator on 2015/1/18.
@@ -24,6 +26,16 @@ public class NewsItem {
     private int pageNumber; //所在页码
     @DatabaseField(canBeNull = true)
     private String source;  //媒体新闻的来源
+    @DatabaseField(canBeNull = false)
+    private Date updateTime;//更新时间
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
 
     public String getSource() {

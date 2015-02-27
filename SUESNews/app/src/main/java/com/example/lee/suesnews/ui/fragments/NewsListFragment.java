@@ -57,10 +57,11 @@ public class NewsListFragment extends BaseFragment {
     private PtrFrameLayout frame;
     private MaterialHeader header;
 
+    //是否为第一次加载数据
+    private boolean mIsFirstLoad = false;
+
     //缓存
     private List<NewsItem> mNewsItems = new ArrayList<NewsItem>();
-//    //数据库访问
-//    private NewsItemDao mNewsItemDao;
 
     public NewsListFragment() {
         // Required empty public constructor
@@ -133,6 +134,7 @@ public class NewsListFragment extends BaseFragment {
                         urlBundle.putString("url",item.getUrl());
                         startActivityIntent.putExtra("key",urlBundle);
                         startActivity(startActivityIntent);
+                        //设置页面切换动画
                         getActivity().overridePendingTransition(R.anim.activity_fade_in,
                                 R.anim.no_anim);
 
@@ -229,9 +231,13 @@ public class NewsListFragment extends BaseFragment {
         protected List<NewsItem> doInBackground(Integer... currentPage) {
 
             try {
-                 boolean netAvailable = HttpUtils.IsNetAvailable(getActivity());
-                 return mNewsItemBiz.getNewsItems(mNewsType, currentPage[0],netAvailable);
 
+                boolean netAvailable = HttpUtils.IsNetAvailable(getActivity());
+                //如果当前是第一次加载，则直接从数据库读取
+                if (netAvailable && mIsFirstLoad){
+                    return mNewsItemBiz.getNewsItemCache(mNewsType, currentPage[0], true);
+                }
+                return mNewsItemBiz.getNewsItems(mNewsType, currentPage[0],netAvailable);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.i("ASDNET","neterror :"+e);

@@ -20,6 +20,7 @@ import com.example.lee.suesnews.R;
 import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.biz.NewsItemBiz;
+import com.example.lee.suesnews.utils.HttpUtils;
 
 import java.util.List;
 
@@ -33,13 +34,15 @@ public class NewsContentActivity extends BaseActivity {
     private TextView mContextTextView;      //文章内容
     private TextView mTitleDateTextView;      //文章日期
 
+    private NewsItemBiz mNewsItemBiz;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_content);
 
         init();
-
+        mNewsItemBiz = new NewsItemBiz(this);
         //通过bundle获取文章内容的url
         mNewsContentUrl = this.getIntent().getBundleExtra("key").getString("url");
         LoadNewsContentTask loadNewsContentTask = new LoadNewsContentTask();
@@ -118,8 +121,7 @@ public class NewsContentActivity extends BaseActivity {
         protected NewsContent doInBackground(String... urls) {
 
             try {
-//                Log.i("ASD","Content url: "+ urls[0]);
-                return NewsItemBiz.getNewsContent(urls[0]);
+                return mNewsItemBiz.getNewsContent(urls[0]);
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.i("ASD","Content错误： "+ e);

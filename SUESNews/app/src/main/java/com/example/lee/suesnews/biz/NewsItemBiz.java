@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.common.NewsTypes;
+import com.example.lee.suesnews.dao.NewsContentDao;
 import com.example.lee.suesnews.dao.NewsItemDao;
 import com.example.lee.suesnews.utils.HttpUtils;
 import com.example.lee.suesnews.utils.StringUtils;
@@ -16,7 +17,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,14 +42,94 @@ public class NewsItemBiz {
     private static final String NEWS_META_ITEM_CLASS = "meta_item";  //包含新闻相关信息条目的class
     private static final String NEWS_ARTICLE_CLASS = "article";  //包含新闻内容td的class
 
+    private static final int OUTOFTIME_MINUTE = 30;             //新闻过期时间（分钟）
+
+    private List<NewsItem> mNewsItemCache;                  //NewsItem缓存
+//    private List<NewsItem> mNewsContentCache;               //NewsContent缓存
+
     private Context mContext;
 
     private NewsItemDao mNewsItemDao;
+    private NewsContentDao mNewsContentDao;
 
     public NewsItemBiz(Context context) {
         mContext = context;
         mNewsItemDao = new NewsItemDao(context);
+        mNewsContentDao = new NewsContentDao(context);
     }
+
+    /**
+     * 查看对象是否过期
+     * @param t
+     * @param <T>
+     * @return 如果未过期则返回大于0的数，如果过期则返回小与0的数
+     */
+    public <T> int isOutOfTime(T t){
+
+
+        if (t instanceof NewsItem ){
+            return ((NewsItem) t).getUpdateTime().compareTo(getUnOutOfTimeDate());
+        }
+
+        return -1;
+    }
+
+    /**
+     * 得到未过期的最迟时间（即修改时间小于此时间为过期）
+     * @return 过期时间
+     */
+    public Date getUnOutOfTimeDate(){
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, - OUTOFTIME_MINUTE);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获取新闻项的数据库缓存
+     * @param newsType  类型
+     * @param currentPage   当前页
+     * @param isNeedRefresh 是否强制刷新
+     * @return  新闻项列表缓存
+     * @throws SQLException
+     */
+    public List<NewsItem> getNewsItemCache(int newsType,int currentPage,boolean isNeedRefresh) throws SQLException {
+        //如果缓存为空或需要刷新缓存时重新从数据库提取数据
+        if (mNewsItemCache == null || isNeedRefresh){
+            mNewsItemCache = mNewsItemDao.searchByPageAndType(currentPage,newsType);
+        }
+        return mNewsItemCache;
+    }
+
+    /**
+     * 设置缓存
+     * @param mNewsItemCache
+     */
+    public void setNewsItemCache(List<NewsItem> mNewsItemCache) {
+        this.mNewsItemCache = mNewsItemCache;
+    }
+
+//    /**
+//     * 获取新闻内容的数据库缓存
+//     * @param url  地址
+//     * @return  新闻内容缓存
+//     * @throws SQLException
+//     */
+//    public List<NewsContent> getNewsContentCache(String url) throws SQLException {
+//        //如果缓存为空或需要刷新缓存时重新从数据库提取数据
+//
+//        return mNewsContentCache;
+//    }
+//
+//    /**
+//     * 设置缓存
+//     * @param mNewsContentCache
+//     */
+//    public void setNewsContentCache(List<NewsContent> mNewsContentCache) {
+//        this.mNewsContentCache = mNewsContentCache;
+//    }
+
 
     /**
      * 根据新闻类型和页码得到新闻列表
@@ -56,18 +140,28 @@ public class NewsItemBiz {
      * @throws Exception
      */
     public List<NewsItem> getNewsItems(int newsType,int currentPage,boolean netAvailable) throws Exception {
-        //TODO:.有网络时查看数据是否过期;
 
         //当无网络时加载数据库中数据
         Log.i("ASDNET","netAvailable:"+netAvailable);
-        if (!netAvailable){
-            return mNewsItemDao.searchByPageAndType(currentPage,newsType);
+
+        if (!netAvailable ){
+            return getNewsItemCache(newsType,currentPage,false);
         }
+        //有网络时查看数据是否过期,未过期则返回缓存数据
+        if (getNewsItemCache(newsType,currentPage,false) != null
+                && this.isOutOfTime(getNewsItemCache(newsType,currentPage,false).get(0)) > 0){
+            return getNewsItemCache(newsType,currentPage,true);
+        }
+        //若数据已过期，则重新获取
 
         String url = SuesApiUtils.getNewsUrl(newsType, currentPage);
-
-        String htmlStr = HttpUtils.doGet(url);
-
+        String htmlStr = null;
+        //如果服务器未返回数据,则返回数据库中的数据
+        try {
+            htmlStr = HttpUtils.doGet(url);
+        }catch (Exception ex){
+            return getNewsItemCache(newsType,currentPage,true);
+        }
         List<NewsItem> newsItems = new ArrayList<NewsItem>();
 
         NewsItem newsItem;
@@ -85,7 +179,7 @@ public class NewsItemBiz {
 
             newsItem.setTitle(link.child(0).text());    //设置新闻标题
 
-
+            //媒体聚焦页面有来源无时间
             if (newsType != NewsTypes.NEWS_TPYE_MTJJ){
                 Element postTime = columnTable.getElementsByClass(POST_TIME_CLASS).get(0);
                 newsItem.setDate(postTime.text());
@@ -97,14 +191,20 @@ public class NewsItemBiz {
             newsItem.setPageNumber(currentPage);
             //文章内容点击进入后再添加
 
+            newsItem.setUpdateTime(new Date());
             newsItems.add(newsItem);
 
         }
 
+        //将数据添加进数据库
         for(NewsItem item : newsItems) {
             mNewsItemDao.createOrUpdate(item);
         }
+        //将数据添加进缓存
+        setNewsItemCache(newsItems);
+
         return newsItems;
+
     }
 
     /**
@@ -112,8 +212,12 @@ public class NewsItemBiz {
      * @param url 新闻url
      * @return
      */
-    public static NewsContent getNewsContent(String url) throws Exception {
-//        Log.i("ASD","url:"+url);
+    public NewsContent getNewsContent(String url) throws Exception {
+
+        NewsContent content = mNewsContentDao.searchByUrl(url);
+        if (content != null){
+            return content;
+        }
         //获取html
         String htmlStr = HttpUtils.doGet(url);
 //        Log.i("ASD","html"+htmlStr);
@@ -168,8 +272,9 @@ public class NewsItemBiz {
 
         }
 
+        //TODO:将数据添加进数据库
+//            mNewsContentDao.createOrUpdate(news);
 
         return news;
-
     }
 }
