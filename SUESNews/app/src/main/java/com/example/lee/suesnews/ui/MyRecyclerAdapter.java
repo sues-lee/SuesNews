@@ -3,16 +3,13 @@ package com.example.lee.suesnews.ui;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.lee.suesnews.R;
-import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
-import com.example.lee.suesnews.biz.NewsItemBiz;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +57,8 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
                 viewGroup,false);
         TextView titleTextView = (TextView) v.findViewById(R.id.titleTextView);
         TextView dateTextView = (TextView) v.findViewById(R.id.dateTextView);
-        return new ViewHolder(v,titleTextView,dateTextView);
+        ImageView titleImageView = (ImageView) v.findViewById(R.id.titleImageView);
+        return new ViewHolder(v,titleTextView,dateTextView,titleImageView);
     }
 
     /**
@@ -83,8 +81,11 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private View mView;
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private ImageView mTitleImageView;
 
         private NewsItem mNewsItem;
 
@@ -92,11 +93,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             super(v);
         }
 
-        public ViewHolder(View v,TextView titleTextView,TextView dateTextView){
+        public ViewHolder(View v,TextView titleTextView,TextView dateTextView,ImageView imageView){
             this(v);
             v.setOnClickListener(this);
             mTitleTextView = titleTextView;
             mDateTextView = dateTextView;
+            mTitleImageView = imageView;
+            mView = v;
         }
 
 
@@ -109,8 +112,25 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             //如果日期为空，则尝试使用新闻来源
             mDateTextView.setText(newsItem.getDate() == null ?
                     newsItem.getSource():newsItem.getDate());
+            //图片根据id改变
+            mTitleImageView.setImageDrawable(mView.getContext().getResources().getDrawable(getImageId(newsItem.getId())));
             mNewsItem = newsItem;
 
+        }
+
+        private int getImageId(int id){
+            int num = id % 4;
+            switch (num){
+                case 0:
+                    return R.drawable.materialdesign_pic_1;
+                case 1:
+                    return R.drawable.materialdesign_pic_2;
+                case 2:
+                    return R.drawable.materialdesign_pic_3;
+                case 3:
+                    return R.drawable.materialdesign_pic_4;
+            }
+            return R.drawable.materialdesign_pic_1;
         }
 
         @Override

@@ -11,7 +11,7 @@
                 android:id="@+id/header_img"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/drawer_header_height"
-                android:src="@drawable/drawer_header"
+                android:src="@drawable/background_drawer_header"
                 android:scaleType="centerCrop"
 
                 />

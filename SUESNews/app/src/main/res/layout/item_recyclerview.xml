@@ -17,17 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="140dp">
             <ImageView
-                android:id="@+id/title_image"
+                android:id="@+id/titleImageView"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/drawer_header"/>
+                tools:src="@drawable/materialdesign_pic_2"/>
             <TextView
                 android:id="@+id/titleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/title_image"
-                android:layout_toEndOf="@+id/title_image"
+                android:layout_toRightOf="@+id/titleImageView"
+                android:layout_toEndOf="@+id/titleImageView"
                 android:layout_margin="@dimen/text_margin"
                 android:textSize="@dimen/text_size_title"
                 android:textColor="@color/primary_text"
