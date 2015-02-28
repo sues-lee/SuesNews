@@ -16,8 +16,8 @@ public class NewsContent {
     private int id;
     @DatabaseField
     private String title;   //新闻标题
-    @DatabaseField
-    private int type;       //新闻类型
+//    @DatabaseField
+//    private int type;       //新闻类型
     @DatabaseField
     private String date;    //日期
     @DatabaseField
@@ -31,7 +31,7 @@ public class NewsContent {
     @DatabaseField
     private String content; //文章内容
 //    @DatabaseField
-    private List<String> imgUrls;   //新闻图片地址
+//    private List<String> imgUrls;   //新闻图片地址
 
 
 
@@ -40,7 +40,6 @@ public class NewsContent {
      * @return
      */
     public String getFormatedContent(){
-
         return content;
     }
 
@@ -52,24 +51,28 @@ public class NewsContent {
     public void setUrl(String url) {
         this.url = url;
     }
-
-    public List<String> getImgUrls() {
-        return imgUrls;
-    }
-
-    public void setImgUrls(List<String> imgUrls) {
-        this.imgUrls = imgUrls;
-    }
-
-    public void addImgUrl(String imgUrl){
-        if (this.imgUrls == null){
-            imgUrls = new ArrayList<String>();
-        }
-        imgUrls.add(imgUrl);
-    }
+//
+//    public List<String> getImgUrls() {
+//        return imgUrls;
+//    }
+//
+//    public void setImgUrls(List<String> imgUrls) {
+//        this.imgUrls = imgUrls;
+//    }
+//
+//    public void addImgUrl(String imgUrl){
+//        if (this.imgUrls == null){
+//            imgUrls = new ArrayList<String>();
+//        }
+//        imgUrls.add(imgUrl);
+//    }
 
     public void addContent(String content){
-        content += "\t\t" + content + "\n\n";
+        if (this.content == null){
+            this.content = "\t\t" +  content;
+            return;
+        }
+        this.content += "\t\t" + content + "\n\n";
     }
 
     public int getId() {
@@ -88,13 +91,13 @@ public class NewsContent {
         this.title = title;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
+//    public int getType() {
+//        return type;
+//    }
+//
+//    public void setType(int type) {
+//        this.type = type;
+//    }
 
     public String getDate() {
         return date;
@@ -125,13 +128,13 @@ public class NewsContent {
         return "NewsContent{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", type=" + type +
+//                ", type=" + type +
                 ", date='" + date + '\'' +
                 ", author='" + author + '\'' +
                 ", source='" + source + '\'' +
                 ", url='" + url + '\'' +
                 ", contents=" + content +
-                ", imgUrls=" + imgUrls +
+//                ", imgUrls=" + imgUrls +
                 '}';
     }
 }

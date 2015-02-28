@@ -260,7 +260,7 @@ public class NewsItemBiz {
             //获取图片
             if (images.size() > 0){
                 for (Element image : images){
-                    news.addImgUrl(image.attr("src"));
+//                    news.addImgUrl(image.attr("src"));
                 }
                 continue;
             }
@@ -273,7 +273,7 @@ public class NewsItemBiz {
         }
 
         //TODO:将数据添加进数据库
-//            mNewsContentDao.createOrUpdate(news);
+        mNewsContentDao.createOrUpdate(news);
 
         return news;
     }

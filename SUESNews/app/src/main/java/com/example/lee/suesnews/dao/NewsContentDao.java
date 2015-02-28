@@ -24,15 +24,23 @@ public class NewsContentDao {
 
     /**
      * 更新或添加
-     * @param newsContent 需要更新的新闻列表项
+     * @param newsContent 需要更新的新闻内容
      */
     public void createOrUpdate(NewsContent newsContent){
         mNewsContentDao.createOrUpdate(newsContent);
     }
 
     /**
+     * 添加
+     * @param newsContent 需要更新的新闻内容
+     */
+    public void create(NewsContent newsContent){
+        mNewsContentDao.create(newsContent);
+    }
+
+    /**
      * 按照标题删除
-     * @param   title 需要删除的新闻项的标题
+     * @param   title 需要删除的新闻内容的标题
      * @return
      * @throws java.sql.SQLException
      */
@@ -46,7 +54,7 @@ public class NewsContentDao {
 
     /**
      * 按照url删除
-     * @param   url 需要删除的新闻项的url
+     * @param   url 需要删除的新闻内容的url
      * @return
      * @throws SQLException
      */

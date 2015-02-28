@@ -31,6 +31,7 @@ public class NewsItemDao {
         mNewsItemDao.createOrUpdate(newsItem);
     }
 
+
     /**
      * 按照标题删除
      * @param   title 需要删除的新闻项的标题

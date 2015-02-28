@@ -61,6 +61,7 @@
                     android:textSize="@dimen/text_size_normal"
                     android:padding="@dimen/text_margin"
                     android:lineSpacingMultiplier="1.5"
+                    android:autoLink="all|web"
                     tools:text="adsdsadadas"
                     />
             </RelativeLayout>
