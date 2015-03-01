@@ -40,12 +40,13 @@
                 android:layout_marginTop="@dimen/view_margin">
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/list_item_height">
+                    android:layout_height="@dimen/list_item_height"
+                    android:background="@drawable/view_click_state">
                     <be.webelite.ion.IconView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:name="ion_heart"
-                        android:textSize="@dimen/text_size_title_bigger"
+                        android:textSize="@dimen/text_size_title"
                         android:textColor="?attr/colorPrimary"
                         android:layout_marginLeft="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
@@ -59,20 +60,22 @@
                         android:layout_marginRight="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
                         android:layout_marginEnd="@dimen/text_margin"
-                        android:textSize="@dimen/text_size_title"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/primary_text"
                         android:gravity="center_vertical"
 
                         />
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/drawer_item_about"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/list_item_height">
+                    android:layout_height="@dimen/list_item_height"
+                    android:background="@drawable/view_click_state">
                     <be.webelite.ion.IconView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:name="ion_home"
-                        android:textSize="@dimen/text_size_title_bigger"
+                        android:textSize="@dimen/text_size_title"
                         android:textColor="?attr/colorPrimary"
                         android:layout_marginLeft="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
@@ -86,7 +89,7 @@
                         android:layout_marginRight="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
                         android:layout_marginEnd="@dimen/text_margin"
-                        android:textSize="@dimen/text_size_title"
+                        android:textSize="@dimen/text_size_normal"
                         android:textColor="@color/primary_text"
                         android:gravity="center_vertical"
                         />

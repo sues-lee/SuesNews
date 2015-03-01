@@ -15,7 +15,9 @@
         >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="140dp">
+            android:layout_height="140dp"
+            android:background="@drawable/view_click_state"
+            >
             <ImageView
                 android:id="@+id/titleImageView"
                 android:layout_width="100dp"

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <PreferenceCategory
+        android:title="选项"
+        >
+        <CheckBoxPreference
+            android:key="checkbox_preference_1"
+            android:title="复选框设置"
+            android:summary="解释文字"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="选项2"
+        >
+        <CheckBoxPreference
+            android:key="checkbox_preference_2"
+            android:title="复选框设置2"
+            android:summary="解释文字2"
+            />
+        <Preference
+            android:title="清除缓存"
+            android:defaultValue="false"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

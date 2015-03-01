@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_news_content">NewsContentActivity</string>
     <string name="click_to_exit">再按一次退出程序</string>
-    <string name="app_home_page">http://sues.edu.cn.cn</string>
+    <string name="app_home_page">http://sues.edu.cn</string>
 
 
 </resources>

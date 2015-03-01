@@ -1,5 +1,7 @@
 package com.example.lee.suesnews.ui;
 
+import android.annotation.TargetApi;
+import android.app.FragmentManager;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -95,8 +97,8 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.no_anim,R.anim.activity_fade_out
-        );
+//        overridePendingTransition(R.anim.no_anim,R.anim.activity_fade_out
+//        );
     }
 
 
@@ -136,4 +138,11 @@ public class BaseActivity extends ActionBarActivity {
         boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         return !(hasBackKey && hasMenuKey);
     }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    protected void replaceFragment(int viewId, android.app.Fragment fragment) {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(viewId, fragment).commit();
+    }
+
 }

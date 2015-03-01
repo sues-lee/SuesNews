@@ -2,10 +2,14 @@ package com.example.lee.suesnews.ui.fragments;
 
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -130,13 +134,25 @@ public class NewsListFragment extends BaseFragment {
 
                         //打开显示新闻内容的Activity,把新闻的url作为参数传过去
                         Intent startActivityIntent = new Intent(getActivity(),NewsContentActivity.class);
+
+//                        ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(view,
+//                                0,0,view.getWidth(),view.getHeight());
+
+
+                        view.setDrawingCacheEnabled(true);
+                        view.setPressed(false);
+                        view.refreshDrawableState();
+                        Bitmap bitmap = view.getDrawingCache();
+                        ActivityOptions options = ActivityOptions.makeThumbnailScaleUpAnimation(
+                                view, bitmap, 0, 0);
+
                         Bundle urlBundle = new Bundle();
                         urlBundle.putString("url",item.getUrl());
                         startActivityIntent.putExtra("key",urlBundle);
-                        startActivity(startActivityIntent);
+                        ActivityCompat.startActivity(getActivity(), startActivityIntent, options.toBundle());
                         //设置页面切换动画
-                        getActivity().overridePendingTransition(R.anim.activity_fade_in,
-                                R.anim.no_anim);
+//                        getActivity().overridePendingTransition(R.anim.activity_fade_in,
+//                                R.anim.no_anim);
 
                     }
                 })

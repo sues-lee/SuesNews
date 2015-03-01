@@ -37,6 +37,10 @@
             android:name="com.example.lee.suesnews.ui.NewsContentActivity"
             android:label="@string/title_activity_news_content" >
         </activity>
+        <activity
+            android:name="com.example.lee.suesnews.ui.SettingActivity"
+            android:label="@string/title_activity_news_content" >
+        </activity>
 
         <!--share SDK -->
         <activity

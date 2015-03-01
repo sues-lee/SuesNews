@@ -3,6 +3,7 @@ package com.example.lee.suesnews.ui;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -63,6 +64,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     private ViewGroup mMainPage;
     private DrawerLayout mDrawerLayout;
     private ViewGroup mDrawer;
+    //设置按钮区域
+    private ViewGroup mAppSetting;
 
     private MaterialMenuIconToolbar mMaterialMenu;
 
@@ -162,6 +165,16 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
                 //resume the click
             }
         });
+        //设置
+        mAppSetting = (ViewGroup) findViewById(R.id.bottom_drawer);
+        mAppSetting.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initViewPager(){

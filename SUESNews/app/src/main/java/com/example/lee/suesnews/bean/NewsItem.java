@@ -10,13 +10,13 @@ import java.util.Date;
  */
 public class NewsItem {
 
-    @DatabaseField(generatedId = true)
+//    @DatabaseField(generatedId = true)
     private int id;    //ID
     @DatabaseField
     private int type;       //文章类型
     @DatabaseField
     private String title;   //标题
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(id = true)
     private String url;    //链接
     @DatabaseField(canBeNull = true)
     private String date;    //日期
