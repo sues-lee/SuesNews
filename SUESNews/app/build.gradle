@@ -31,7 +31,7 @@ dependencies {
     compile 'in.srain.cube:ultra-ptr:1.0.7@aar'
     compile 'com.jpardogo.materialtabstrip:library:1.0.8'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
-    compile 'be.webelite:ion-iconview:1.0.+@aar'
+    compile 'be.webelite:ion-iconview:1.0.4@aar'
 
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ShareSDK-Core-2.5.8.jar')

@@ -9,7 +9,7 @@
     <color name="divider_color">#B6B6B6</color>
     <color name="text_color">#FFFFFF</color>
     <color name="back_ground_color">#FCFCFC</color>
-
+    <color name="transparent">#0000</color>
     <!--<color name="primary_color">#03A9F4</color>-->
 
 

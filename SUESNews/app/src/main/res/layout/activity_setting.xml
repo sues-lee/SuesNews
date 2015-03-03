@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.example.lee.suesnews.ui.widget.GestureFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/news_content_gesture_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <include
-        layout="@layout/common_toolbar"/>
-    <FrameLayout
-        android:id="@+id/setting_content"
+    android:layout_height="match_parent"
+    android:background="@color/back_ground_color"
+    >
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        </FrameLayout>
+        <include
+            layout="@layout/common_toolbar"/>
+        <FrameLayout
+            android:id="@+id/setting_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            </FrameLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</com.example.lee.suesnews.ui.widget.GestureFrameLayout>
