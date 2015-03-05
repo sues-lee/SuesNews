@@ -5,6 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
     <string name="action_share">分享</string>
+    <string name="main_activity_title">首页</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_news_content">NewsContentActivity</string>
     <string name="click_to_exit">再按一次退出程序</string>

@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
     private void initViews() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(getResources().getString(R.string.app_name));
+        mToolbar.setTitle(getResources().getString(R.string.main_activity_title));
         setSupportActionBar(mToolbar);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

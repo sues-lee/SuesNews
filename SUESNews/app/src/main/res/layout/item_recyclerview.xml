@@ -26,14 +26,25 @@
                 tools:src="@drawable/materialdesign_pic_2"/>
             <TextView
                 android:id="@+id/titleTextView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/titleImageView"
                 android:layout_toEndOf="@+id/titleImageView"
                 android:layout_margin="@dimen/text_margin"
                 android:textSize="@dimen/text_size_title"
                 android:textColor="@color/primary_text"
+                android:maxLines="3"
+                android:ellipsize="end"
                 tools:text="这是标题"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_toRightOf="@+id/titleImageView"
+                android:layout_marginLeft="@dimen/view_margin"
+                android:layout_marginRight="@dimen/view_margin"
+                android:layout_alignTop="@+id/dateTextView"
+                android:background="@color/divider_color"
                 />
             <TextView
                 android:id="@+id/dateTextView"
@@ -41,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:padding="@dimen/text_margin"
+                android:padding="@dimen/view_margin"
                 android:textSize="@dimen/text_size_body"
                 android:textColor="@color/secondary_text"
                 tools:text="2015-01-02"/>
