@@ -82,6 +82,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
     //标识是否点击过一次back退出
     private boolean mIsExit = false;
+    //点击返回键时，延时 TIME_TO_EXIT 毫秒发送此handler重置mIsExit，再其被重置前如果再按一次返回键则退出应用
     private Handler mExitHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -89,6 +90,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             mIsExit = false;
         }
     };
+    final static int TIME_TO_EXIT = 2000;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -342,7 +344,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             mIsExit = true;
             Toast.makeText(getApplicationContext(),R.string.click_to_exit,Toast.LENGTH_SHORT).show();
             //两秒内不点击back则重置mIsExit
-            mExitHandler.sendEmptyMessageDelayed(0,2000);
+            mExitHandler.sendEmptyMessageDelayed(0,TIME_TO_EXIT);
         }
     }
 }

@@ -162,7 +162,7 @@ public class NewsListFragment extends BaseFragment {
         mRecyclerView.setAdapter(mAdapter);
 
         //得到数据
-        getNewsList(mAdapter, mCurrentPage, false);
+        getNewsList(mAdapter, 0, false);
 
         //监听list滑动事件
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -175,8 +175,16 @@ public class NewsListFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 //TODO:添加加载新项目的方法
-//                int lastPos = mLayoutManager.getItemCount();
-//                Log.i("SCROLL","dx:"+dx+"dy:"+dy);
+                int lastVisibleItem = ((LinearLayoutManager)mLayoutManager).findLastVisibleItemPosition();
+                int totalItem = mLayoutManager.getItemCount();
+                //当剩下2个item时加载下一页
+                if(lastVisibleItem > totalItem - 2 && dy > 0){
+                    int loadPage= mNewsItems.get(mNewsItems.size()-1).getPageNumber() + 1;
+                    if (mCurrentPage < loadPage) {
+                        mCurrentPage = loadPage;
+                        getNewsList(mAdapter, mCurrentPage, false);
+                    }
+                }
             }
         });
 }
