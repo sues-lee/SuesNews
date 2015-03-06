@@ -11,6 +11,9 @@
     <dimen name="drawer_width">280dp</dimen>
     <dimen name="drawer_header_height">160dp</dimen>
 
+    <!--新闻内容页图片高度-->
+    <dimen name="flexible_space_image_height">240dp</dimen>
+
     <dimen name="list_item_height">48dp</dimen>
 
     <dimen name="divider_height">4px</dimen>

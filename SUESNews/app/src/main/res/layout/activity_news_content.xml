@@ -4,68 +4,92 @@
     android:id="@+id/news_content_gesture_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/back_ground_color"
     tools:context="com.example.lee.suesnews.ui.NewsContentActivity">
 
-    <include
-        layout="@layout/common_toolbar"/>
-        <ScrollView
-            android:layout_marginTop="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            >
+
+    <ImageView
+        android:id="@+id/title_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/flexible_space_image_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/materialdesign_pic_3" />
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/flexible_space_image_height"
+        android:background="?attr/colorPrimary" />
+
+    <com.example.lee.suesnews.ui.widget.ObservableScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        >
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
-                <RelativeLayout
-                    android:id="@+id/title_layout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary"
-                    android:layout_marginBottom="@dimen/view_margin"
-                    >
-                    <TextView
-                        android:id="@+id/title_text_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="28sp"
-                        android:layout_marginTop="120dp"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="16dp"
-                        tools:text="TEST"
-                        />
-                    <TextView
-                        android:id="@+id/title_date"
-                        android:layout_below="@+id/title_text_view"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginRight="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginBottom="12dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/secondary_text"
-                        tools:text="时间：2015/01/01  "/>
-                </RelativeLayout>
+
                 <TextView
                     android:id="@+id/content_text_view"
-                    android:layout_below="@+id/title_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_size_normal"
+                    android:layout_marginTop="@dimen/flexible_space_image_height"
                     android:padding="@dimen/text_margin"
                     android:lineSpacingMultiplier="1.5"
+                    android:background="@color/back_ground_color"
                     android:autoLink="all|web"
                     tools:text="adsdsadadas"
                     />
             </RelativeLayout>
-        </ScrollView>
+    </com.example.lee.suesnews.ui.widget.ObservableScrollView>
+    <include
+        layout="@layout/common_toolbar"/>
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/flexible_space_image_height"
+        android:layout_marginBottom="@dimen/view_margin"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        >
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="16dp"
+            android:minHeight="?attr/actionBarSize"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            tools:text="TEST"
+            />
+        <TextView
+            android:id="@+id/title_date"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="20sp"
+            android:textColor="@color/secondary_text"
+            tools:text="时间：2015/01/01  "/>
+    </RelativeLayout>
 </com.example.lee.suesnews.ui.widget.GestureFrameLayout>

@@ -3,8 +3,10 @@ package com.example.lee.suesnews.ui;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,22 +25,41 @@ import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.example.lee.suesnews.biz.NewsItemBiz;
 import com.example.lee.suesnews.ui.widget.GestureFrameLayout;
+import com.example.lee.suesnews.ui.widget.ObservableScrollView;
 import com.example.lee.suesnews.utils.HttpUtils;
+import com.github.ksoichiro.android.observablescrollview.ScrollUtils;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.List;
 
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
-public class NewsContentActivity extends BaseActivity {
+public class NewsContentActivity extends BaseActivity implements ObservableScrollView.OnScrollChangedListener {
+
+    private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
+    private static final boolean TOOLBAR_IS_STICKY = true;
+
+    private final int CURRENT_VERSION = Build.VERSION.SDK_INT;
+
+    private final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
 
     private MaterialMenuIconToolbar mMaterialMenu;
     private NewsContent mNewsContent;
     private String mNewsContentUrl;
 
+    private View mImageView;
+    private View mOverlayView;
+    private ObservableScrollView mScrollView;
+
     private TextView mTitleTextView;        //文章标题
     private TextView mContextTextView;      //文章内容
     private TextView mTitleDateTextView;      //文章日期
+
+    private int mActionBarSize;
+    private int mFlexibleSpaceImageHeight;
+
+    private int mToolbarColor;
 
     private GestureFrameLayout gestureFrameLayout;  //滑动返回
 
@@ -58,7 +80,7 @@ public class NewsContentActivity extends BaseActivity {
 
     private void init() {
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("新闻内容");
+        mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,16 +98,79 @@ public class NewsContentActivity extends BaseActivity {
 
         mMaterialMenu.setState(intToState(1));
 
-
+        mImageView = findViewById(R.id.title_image);
+        mOverlayView = findViewById(R.id.overlay);
         mTitleTextView = (TextView) findViewById(R.id.title_text_view);
         mContextTextView = (TextView) findViewById(R.id.content_text_view);
         mTitleDateTextView = (TextView) findViewById(R.id.title_date);
+        mTitleTextView.setHorizontallyScrolling(true);
+
+        mToolbarColor = getResources().getColor(R.color.primary_color);
+
+        mScrollView = (ObservableScrollView) findViewById(R.id.scrollContent);
+        mScrollView.setOnScrollListener(this);
+
+        mScrollView.onScrollChanged(0,mFlexibleSpaceImageHeight,0,0);
+
+        mActionBarSize = getActionBarSize();
+        mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
 
         gestureFrameLayout = (GestureFrameLayout) findViewById(R.id.news_content_gesture_layout);
         gestureFrameLayout.attachToActivity(this);
+
+        //因为顶栏透明，要让出顶栏和底栏空间
+        if (CURRENT_VERSION >= VERSION_KITKAT) {
+            gestureFrameLayout.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
+        }
+
     }
 
 
+    @Override
+    public void onScrollChanged(int scrollX, int scrollY, int oldX, int oldY) {
+        // Translate overlay and image
+        float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
+        int minOverlayTransitionY = mActionBarSize - mOverlayView.getHeight();
+        ViewHelper.setTranslationY(mOverlayView, ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0));
+        ViewHelper.setTranslationY(mImageView, ScrollUtils.getFloat(-scrollY / 2, minOverlayTransitionY, 0));
+
+        // Change alpha of overlay
+        ViewHelper.setAlpha(mOverlayView, ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+        //ViewHelper.setAlpha(mTitleDateTextView, 1 - ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+
+        // Scale title text
+        float scale = 1 + ScrollUtils.getFloat((flexibleRange - scrollY) / flexibleRange, 0, MAX_TEXT_SCALE_DELTA);
+        ViewHelper.setPivotX(mTitleTextView, 0);
+        ViewHelper.setPivotY(mTitleTextView, 0);
+        ViewHelper.setScaleX(mTitleTextView, scale);
+        ViewHelper.setScaleY(mTitleTextView, scale);
+
+        // Translate title text
+        int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight - mTitleTextView.getHeight() * scale);
+        int titleTranslationY = maxTitleTranslationY - scrollY;
+        if (TOOLBAR_IS_STICKY) {
+            titleTranslationY = Math.max(0, titleTranslationY);
+        }
+        ViewHelper.setTranslationY(mTitleTextView, titleTranslationY);
+        //TODO
+        ViewHelper.setTranslationY(mTitleDateTextView, titleTranslationY );
+
+        if (TOOLBAR_IS_STICKY) {
+            // Change alpha of toolbar background
+            if (-scrollY + mFlexibleSpaceImageHeight <= mActionBarSize) {
+                mToolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(1, mToolbarColor));
+            } else {
+                mToolbar.setBackgroundColor(ScrollUtils.getColorWithAlpha(0, mToolbarColor));
+            }
+        } else {
+            // Translate Toolbar
+            if (scrollY < mFlexibleSpaceImageHeight) {
+                ViewHelper.setTranslationY(mToolbar, 0);
+            } else {
+                ViewHelper.setTranslationY(mToolbar, -scrollY);
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -109,7 +194,6 @@ public class NewsContentActivity extends BaseActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     /**
