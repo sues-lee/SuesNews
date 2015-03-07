@@ -57,6 +57,6 @@ public class SettingActivity extends BaseActivity implements SharedPreferences.O
      */
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+        sharedPreferences.getString(key,"");
     }
 }

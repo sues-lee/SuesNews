@@ -69,12 +69,13 @@ public class GestureFrameLayout extends FrameLayout  {
                     float startX = e1.getX();
                     float endX = e2.getX();
                     float x = endX - startX;
-//                    if (endX > startX ){
-//                        return false;
-//                    }
+
                     if( x < 0 ){
                         scrollRight();
                         isFinish = true;
+                    }else{
+                        scrollOrigin();
+                        isFinish = false;
                     }
                     return true;
                 }
@@ -223,7 +224,6 @@ public class GestureFrameLayout extends FrameLayout  {
         super.onLayout(changed, l, t, r, b);
         if (changed) {
             viewWidth = this.getWidth();
-
             getAlLViewPager(mViewPagers, this);
             Log.i(TAG, "ViewPager size = " + mViewPagers.size());
         }
@@ -243,7 +243,6 @@ public class GestureFrameLayout extends FrameLayout  {
             mShadowDrawable.setBounds(left, top, right, bottom);
             mShadowDrawable.draw(canvas);
         }
-
     }
 
 

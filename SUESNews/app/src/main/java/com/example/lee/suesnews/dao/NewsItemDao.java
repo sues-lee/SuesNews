@@ -2,6 +2,7 @@ package com.example.lee.suesnews.dao;
 
 import android.content.Context;
 
+import com.example.lee.suesnews.bean.NewsContent;
 import com.example.lee.suesnews.bean.NewsItem;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.DeleteBuilder;
@@ -58,6 +59,16 @@ public class NewsItemDao {
         deleteBuilder.where().eq("url",url);
         return deleteBuilder.delete();
 
+    }
+
+    public void deleteAll(){
+        mNewsItemDao.delete(queryAll());
+    }
+
+
+    public List<NewsItem> queryAll(){
+        List<NewsItem> news = mNewsItemDao.queryForAll();
+        return news;
     }
 
     /**

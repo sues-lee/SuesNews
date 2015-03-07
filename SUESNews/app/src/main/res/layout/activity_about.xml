@@ -1,0 +1,23 @@
+<com.example.lee.suesnews.ui.widget.GestureFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/about_gesture_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/back_ground_color"
+    tools:context="com.example.lee.suesnews.ui.AboutActivity">
+    <include
+        layout="@layout/common_toolbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_title"
+            android:text="本应用是一个符合Google MaterialDesign 规范的简单校园新闻客户端"/>
+    </RelativeLayout>
+
+</com.example.lee.suesnews.ui.widget.GestureFrameLayout>

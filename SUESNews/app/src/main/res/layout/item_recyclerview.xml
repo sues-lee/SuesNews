@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/card_margin"
         android:layout_marginRight="@dimen/card_margin"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
         >
         <RelativeLayout
             android:layout_width="match_parent"

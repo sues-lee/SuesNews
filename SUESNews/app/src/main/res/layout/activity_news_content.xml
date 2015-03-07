@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/flexible_space_image_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/materialdesign_pic_3" />
+        android:src="@drawable/materialdesign_pic_5" />
     <View
         android:id="@+id/overlay"
         android:layout_width="match_parent"
@@ -52,9 +52,9 @@
 
     <RelativeLayout
         android:id="@+id/title_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/flexible_space_image_height"
-        android:layout_marginBottom="@dimen/view_margin"
+        android:layout_marginBottom="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginRight="24dp"
@@ -65,11 +65,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="16dp"
             android:minHeight="?attr/actionBarSize"
             android:gravity="center_vertical"
             android:singleLine="true"
@@ -80,7 +80,7 @@
             android:id="@+id/title_date"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -88,8 +88,8 @@
             android:layout_marginRight="24dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="12dp"
-            android:textSize="20sp"
-            android:textColor="@color/secondary_text"
+            android:textSize="@dimen/text_size_subhead"
+            android:textColor="?attr/colorAccent"
             tools:text="时间：2015/01/01  "/>
     </RelativeLayout>
 </com.example.lee.suesnews.ui.widget.GestureFrameLayout>

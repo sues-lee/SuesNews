@@ -41,6 +41,7 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
     private static final boolean TOOLBAR_IS_STICKY = true;
 
     private final int CURRENT_VERSION = Build.VERSION.SDK_INT;
+    private final int DP_TRANS_X = 24;      //标题左移的距离
 
     private final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
 
@@ -110,7 +111,7 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
         mScrollView = (ObservableScrollView) findViewById(R.id.scrollContent);
         mScrollView.setOnScrollListener(this);
 
-        mScrollView.onScrollChanged(0,mFlexibleSpaceImageHeight,0,0);
+
 
         mActionBarSize = getActionBarSize();
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
@@ -122,7 +123,12 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
         if (CURRENT_VERSION >= VERSION_KITKAT) {
             gestureFrameLayout.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
         }
-
+        ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
+            @Override
+            public void run() {
+                mScrollView.onScrollChanged(0, 0,0,0);
+            }
+        });
     }
 
 
@@ -136,7 +142,7 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
 
         // Change alpha of overlay
         ViewHelper.setAlpha(mOverlayView, ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
-        //ViewHelper.setAlpha(mTitleDateTextView, 1 - ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+        ViewHelper.setAlpha(mTitleDateTextView, 1 - ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
 
         // Scale title text
         float scale = 1 + ScrollUtils.getFloat((flexibleRange - scrollY) / flexibleRange, 0, MAX_TEXT_SCALE_DELTA);
@@ -146,14 +152,18 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
         ViewHelper.setScaleY(mTitleTextView, scale);
 
         // Translate title text
+        float anim = ScrollUtils.getFloat((float) scrollY/flexibleRange,0,1);       //1-0
         int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight - mTitleTextView.getHeight() * scale);
-        int titleTranslationY = maxTitleTranslationY - scrollY;
+        int maxTitleTranslationX = dp2px(DP_TRANS_X);
+        int titleTranslationY = (int) (maxTitleTranslationY - scrollY  - dp2px(12) * (1 - anim));
+        int titleTranslationX = (int) (maxTitleTranslationX *(1 - anim));
         if (TOOLBAR_IS_STICKY) {
             titleTranslationY = Math.max(0, titleTranslationY);
         }
-        ViewHelper.setTranslationY(mTitleTextView, titleTranslationY);
-        //TODO
+        ViewHelper.setTranslationY(mTitleTextView, titleTranslationY );
+        ViewHelper.setTranslationX(mTitleTextView, -titleTranslationX);
         ViewHelper.setTranslationY(mTitleDateTextView, titleTranslationY );
+        ViewHelper.setTranslationX(mTitleDateTextView, titleTranslationX );
 
         if (TOOLBAR_IS_STICKY) {
             // Change alpha of toolbar background

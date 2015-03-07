@@ -62,7 +62,7 @@ public class NewsListFragment extends BaseFragment {
     private MaterialHeader header;
 
     //是否为第一次加载数据
-    private boolean mIsFirstLoad = false;
+    private boolean mIsFirstLoad = true;
 
     //缓存
     private List<NewsItem> mNewsItems = new ArrayList<NewsItem>();
@@ -113,7 +113,7 @@ public class NewsListFragment extends BaseFragment {
             @Override
             public void onRefreshBegin(final PtrFrameLayout ptrFrameLayout) {
                 getNewsList(mAdapter, mCurrentPage, true);
-                ptrFrameLayout.refreshComplete();
+                //ptrFrameLayout.refreshComplete();
             }
         });
 
@@ -218,7 +218,6 @@ public class NewsListFragment extends BaseFragment {
         }
 
         Log.i("LIXU","size"+total);
-        //TODO:在刷新出新的新闻时应增量刷新
         if(forced && mNewsItems.size()>0){
             mNewsItems.clear();
             Log.i("LIXU","清空"+total);
@@ -259,6 +258,7 @@ public class NewsListFragment extends BaseFragment {
                 boolean netAvailable = HttpUtils.IsNetAvailable(getActivity());
                 //如果当前是第一次加载，则直接从数据库读取
                 if (netAvailable && mIsFirstLoad){
+                    mIsFirstLoad = false;
                     return mNewsItemBiz.getNewsItemCache(mNewsType, currentPage[0], true);
                 }
                 return mNewsItemBiz.getNewsItems(mNewsType, currentPage[0],netAvailable);
@@ -289,6 +289,7 @@ public class NewsListFragment extends BaseFragment {
 
             mAdapter.addNews(newsItems);
             mAdapter.notifyDataSetChanged();
+            frame.refreshComplete();
         }
 
         @Override

@@ -66,6 +66,10 @@ public class NewsContentDao {
 
     }
 
+    public void deleteAll(){
+        mNewsContentDao.delete(queryAll());
+    }
+
     /**
      * 按照标题查询
      * @param title
@@ -82,6 +86,10 @@ public class NewsContentDao {
     }
 
 
+    public List<NewsContent> queryAll(){
+        List<NewsContent> news = mNewsContentDao.queryForAll();
+        return news;
+    }
 
     /**
      * 按照url查询

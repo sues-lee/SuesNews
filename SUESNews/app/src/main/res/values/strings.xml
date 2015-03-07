@@ -5,11 +5,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
     <string name="action_share">分享</string>
+    <string name="about">关于</string>
     <string name="main_activity_title">首页</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_news_content">NewsContentActivity</string>
     <string name="click_to_exit">再按一次退出程序</string>
+    <string name="delete_success">缓存清理成功</string>
     <string name="app_home_page">http://sues.edu.cn</string>
-
+    <string name="setting_key_clear_cache">clear_cache</string>
+    <string name="setting_key_post_back">post_back</string>
+    <string name="setting_key_check_update">check_update</string>
+    <string name="title_activity_about">AboutActivity</string>
 
 </resources>

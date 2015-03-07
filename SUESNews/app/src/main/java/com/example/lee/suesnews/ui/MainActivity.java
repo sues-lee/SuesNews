@@ -64,8 +64,10 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     private ViewGroup mMainPage;
     private DrawerLayout mDrawerLayout;
     private ViewGroup mDrawer;
+
     //设置按钮区域
-    private ViewGroup mAppSetting;
+    private View mAppSetting;
+    private View mAboutButton;
 
     private MaterialMenuIconToolbar mMaterialMenu;
 
@@ -176,6 +178,16 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
                 startActivity(intent);
             }
         });
+        //关于
+        mAboutButton = findViewById(R.id.drawer_item_about);
+        mAboutButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

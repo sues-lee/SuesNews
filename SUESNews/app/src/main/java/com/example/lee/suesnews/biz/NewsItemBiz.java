@@ -277,4 +277,12 @@ public class NewsItemBiz {
 
         return news;
     }
+
+    /**
+     * 清除缓存数据库
+     */
+    public void clearCache(){
+        mNewsContentDao.deleteAll();
+        mNewsItemDao.deleteAll();
+    }
 }

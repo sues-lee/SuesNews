@@ -104,7 +104,7 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     public void finish() {
         super.finish();
-//        overridePendingTransition(R.anim.no_anim,R.anim.activity_fade_out
+        overridePendingTransition(R.anim.no_anim,R.anim.activity_slide_out);
 //        );
     }
 

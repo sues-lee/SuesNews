@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.lee.suesnews.ui.NewsContentActivity">
     <item android:id="@+id/action_share"
-        android:title="@string/action_share"
+        android:title="@string/share"
+        android:icon="@drawable/ic_share_white_16dp"
         android:orderInCategory="100"
-        android:showAsAction="never" />
+        app:showAsAction="always" />
 </menu>
