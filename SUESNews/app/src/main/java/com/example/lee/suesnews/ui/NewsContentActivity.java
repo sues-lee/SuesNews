@@ -18,7 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconToolbar;
 import com.example.lee.suesnews.R;
 import com.example.lee.suesnews.bean.NewsContent;
@@ -81,23 +80,14 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
 
     private void init() {
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("");
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_18dp));
         setSupportActionBar(mToolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+           mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NewsContentActivity.this.finish();
             }
         });
-
-        mMaterialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
-            @Override
-            public int getToolbarViewId() {
-                return R.id.toolbar;
-            }
-        };
-
-        mMaterialMenu.setState(intToState(1));
 
         mImageView = findViewById(R.id.title_image);
         mOverlayView = findViewById(R.id.overlay);

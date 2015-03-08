@@ -31,6 +31,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 public class BaseActivity extends ActionBarActivity {
 
     protected Toolbar mToolbar;
+    SystemBarTintManager mTintManager;
 //    protected NewsItemBiz mNewsItemBiz;
 
     @Override
@@ -40,15 +41,15 @@ public class BaseActivity extends ActionBarActivity {
 //        mNewsItemBiz = new NewsItemBiz(this);
 
         //使用tintManager设置状态栏的颜色
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        mTintManager= new SystemBarTintManager(this);
         // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
+        mTintManager.setStatusBarTintEnabled(true);
         // enable navigation bar tint
         if (isHasNavigationBar()) {
-            tintManager.setNavigationBarTintEnabled(true);
+            mTintManager.setNavigationBarTintEnabled(true);
         }
         // set a custom tint color for all system bars
-        tintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
+        mTintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
 
 //        SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
     }
@@ -169,6 +170,7 @@ public class BaseActivity extends ActionBarActivity {
         ShareSDK.initSDK(this);
 
         String appHomePage = getString(R.string.app_home_page);
+        String shareText = text != "" ? text : appHomePage;
 
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -181,7 +183,7 @@ public class BaseActivity extends ActionBarActivity {
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
         oks.setTitleUrl(appHomePage);
         // text是分享文本，所有平台都需要这个字段
-        oks.setText(text);
+        oks.setText(shareText);
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         oks.setImagePath(Environment.getExternalStorageDirectory().getPath()
                 + "/test.jpg");//确保SDcard下面存在此张图片

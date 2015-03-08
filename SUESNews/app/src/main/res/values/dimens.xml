@@ -29,5 +29,7 @@
     <dimen name="text_size_title_bigger">28sp</dimen>
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_body">14sp</dimen>
+
+    <dimen name="welcome_text_padding_bottom">80dp</dimen>
 </resources>
 

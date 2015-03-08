@@ -117,7 +117,6 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             }
         });
 
-
         mMaterialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
             @Override
             public int getToolbarViewId() {
@@ -125,6 +124,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             }
         };
         mMaterialMenu.setNeverDrawTouch(true);
+
+        mTintManager.setStatusBarTintEnabled(false);
 
         //设置侧滑菜单的监听
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -158,7 +159,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         //因为顶栏透明，要让出顶栏和底栏空间
         if (CURRENT_VERSION >= VERSION_KITKAT) {
             mMainPage.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
-            mDrawer.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
+            mDrawer.setPadding(0, 0, 0, getNavigationBarHeight());
         }
 
         //侧边栏

@@ -29,7 +29,10 @@ public class SettingActivity extends BaseActivity implements SharedPreferences.O
         mGestureFrameLayout.attachToActivity(this);
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle("设置");
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_18dp));
+        //mToolbar.setTitle("设置");
+        setSupportActionBar(mToolbar);
+
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,13 +40,6 @@ public class SettingActivity extends BaseActivity implements SharedPreferences.O
             }
         });
 
-        MaterialMenuIconToolbar materialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
-            @Override
-            public int getToolbarViewId() {
-                return R.id.toolbar;
-            }
-        };
-        materialMenu.setState(intToState(1));
 
         mSettingFragment = new SettingFragment();
         replaceFragment(R.id.setting_content,mSettingFragment);
