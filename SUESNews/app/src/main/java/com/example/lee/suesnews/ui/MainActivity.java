@@ -48,6 +48,8 @@ import com.example.lee.suesnews.ui.fragments.NewsListFragment;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +70,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
     //设置按钮区域
     private View mAppSetting;
     private View mAboutButton;
+    private View mShareButton;
+    private View mFeedBackButton;
 
     private MaterialMenuIconToolbar mMaterialMenu;
 
@@ -103,6 +107,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         initViews();
 
         initViewPager();
+
+        UmengUpdateAgent.update(this);  //检查更新
     }
 
     private void initViews() {
@@ -188,7 +194,14 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
                 startActivity(intent);
             }
         });
-
+        //分享
+        mShareButton = findViewById(R.id.drawer_item_share);
+        mShareButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showShare(MainActivity.this,MainActivity.this.getResources().getString(R.string.share_app_string));
+            }
+        });
 
     }
 
@@ -255,6 +268,8 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            startActivity(intent);
             return true;
         }
 

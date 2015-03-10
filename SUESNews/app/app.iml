@@ -86,6 +86,7 @@
     <orderEntry type="library" exported="" name="ultra-ptr-1.0.7" level="project" />
     <orderEntry type="library" exported="" name="ormlite-android-4.49-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-Evernote-2.5.8" level="project" />
+    <orderEntry type="library" exported="" name="fb-5.1.0" level="project" />
     <orderEntry type="library" exported="" name="cardview-v7-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="material-menu-1.5.1" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-Wechat-Core-2.5.8" level="project" />
@@ -109,6 +110,9 @@
     <orderEntry type="library" exported="" name="ShareSDK-Wechat-Favorite-2.5.8" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-21.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="umeng-update-v2.6.0" level="project" />
+    <orderEntry type="library" exported="" name="analytics-5.4.2" level="project" />
+    <orderEntry type="library" exported="" name="message-1.4.1" level="project" />
     <orderEntry type="library" exported="" name="ShareSDK-Core-2.5.8" level="project" />
   </component>
 </module>

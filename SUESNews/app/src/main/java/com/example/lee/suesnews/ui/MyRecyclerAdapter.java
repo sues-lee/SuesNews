@@ -1,5 +1,8 @@
 package com.example.lee.suesnews.ui;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +14,10 @@ import android.widget.TextView;
 import com.example.lee.suesnews.R;
 import com.example.lee.suesnews.bean.NewsItem;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -23,17 +28,24 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     //当前显示的数据
     private List<NewsItem> mNewsList = new ArrayList<NewsItem>();
+    private Drawable mDrawble;
+//    private Context mContext;
 
     public List<NewsItem> getmNewsList() {
         return mNewsList;
     }
 
-    public MyRecyclerAdapter(){
+    public MyRecyclerAdapter(Context context){
+        this(context,null);
     }
 
 
-    public MyRecyclerAdapter(List<NewsItem> myDataset){
-        mNewsList = myDataset;
+    public MyRecyclerAdapter(Context context, List<NewsItem> myDataset){
+
+        mNewsList = myDataset != null ? myDataset : new ArrayList<NewsItem>();
+        Random random = new Random();
+        int i = random.nextInt(4);
+        mDrawble = context.getResources().getDrawable(getImageId(i));
     }
 
     /**
@@ -43,6 +55,21 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public void addNews(List<NewsItem> news){
         mNewsList.addAll(news);
         Log.i("LIXU", "adapter" + mNewsList.size());
+    }
+
+    private int getImageId(int id){
+        int num = id % 4;
+        switch (num){
+            case 0:
+                return R.drawable.materialdesign_pic_1;
+            case 1:
+                return R.drawable.materialdesign_pic_2;
+            case 2:
+                return R.drawable.materialdesign_pic_3;
+            case 3:
+                return R.drawable.materialdesign_pic_4;
+        }
+        return R.drawable.materialdesign_pic_1;
     }
 
     /**
@@ -58,6 +85,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         TextView titleTextView = (TextView) v.findViewById(R.id.titleTextView);
         TextView dateTextView = (TextView) v.findViewById(R.id.dateTextView);
         ImageView titleImageView = (ImageView) v.findViewById(R.id.titleImageView);
+        titleImageView.setImageDrawable(mDrawble);
         return new ViewHolder(v,titleTextView,dateTextView,titleImageView);
     }
 
@@ -77,7 +105,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mNewsList.size();
+        if (mNewsList != null) {
+            return mNewsList.size();
+        }
+        return 0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -112,25 +143,9 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             //如果日期为空，则尝试使用新闻来源
             mDateTextView.setText(newsItem.getDate() == null ?
                     newsItem.getSource():newsItem.getDate());
-            //图片根据id改变
-            mTitleImageView.setImageDrawable(mView.getContext().getResources().getDrawable(getImageId(newsItem.getId())));
+            //图片随机分配
+//            mTitleImageView.setImageDrawable();
             mNewsItem = newsItem;
-
-        }
-
-        private int getImageId(int id){
-            int num = id % 4;
-            switch (num){
-                case 0:
-                    return R.drawable.materialdesign_pic_1;
-                case 1:
-                    return R.drawable.materialdesign_pic_2;
-                case 2:
-                    return R.drawable.materialdesign_pic_3;
-                case 3:
-                    return R.drawable.materialdesign_pic_4;
-            }
-            return R.drawable.materialdesign_pic_1;
         }
 
         @Override

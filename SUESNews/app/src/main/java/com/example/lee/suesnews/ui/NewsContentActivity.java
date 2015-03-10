@@ -232,12 +232,10 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
         @Override
         protected void onPostExecute(NewsContent newsContent) {
             if (newsContent == null) {
-                //TODO:字符串转换为资源
-                Toast.makeText(NewsContentActivity.this, "刷新失败，请检查网络后重试", Toast.LENGTH_LONG).show();
+                Toast.makeText(NewsContentActivity.this,getResources().getString(R.string.net_unavaiable), Toast.LENGTH_LONG).show();
                 return;
             }
-            //TODO:处理信息缓存
-
+            //处理信息缓存
             mNewsContent = newsContent;
             //将内容载入界面
             mTitleTextView.setText(newsContent.getTitle());

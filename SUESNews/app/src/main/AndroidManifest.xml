@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <!-- ShareSDK -->
     <uses-permission android:name="android.permission.GET_TASKS" />
@@ -16,7 +17,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ibooks"
+        android:icon="@drawable/ic_suesnews"
         android:label="@string/app_name"
         >
         <activity
@@ -56,6 +57,11 @@
             android:theme="@style/AppTheme.Transparent" >
         </activity>
 
+        <!--用户反馈-->
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"
+            android:theme="@style/AppTheme"/>
+
         <!-- share SDK -->
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
@@ -79,6 +85,18 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--下载更新-->
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!--友盟APPKEY-->
+        <meta-data android:value="54fda2b3fd98c57a8f0008f6" android:name="UMENG_APPKEY"></meta-data>
+
     </application>
 
 </manifest>

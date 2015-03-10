@@ -39,6 +39,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/view_margin">
                 <RelativeLayout
+                    android:id="@+id/drawer_item_share"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/list_item_height"
                     android:background="@drawable/view_click_state">
@@ -46,14 +47,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:name="ion_heart"
-                        android:textSize="@dimen/text_size_title"
+                        android:textSize="@dimen/drawer_icon_size"
                         android:textColor="?attr/colorPrimary"
                         android:layout_marginLeft="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
                         android:layout_centerVertical="true"
                         />
                     <TextView
-                        android:text="收藏"
+                        android:text="分享应用"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/list_item_height"
                         android:layout_marginLeft="@dimen/menu_margin_left"
@@ -74,8 +75,8 @@
                     <be.webelite.ion.IconView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:name="ion_home"
-                        android:textSize="@dimen/text_size_title"
+                        app:name="ion_social_github"
+                        android:textSize="@dimen/drawer_icon_size"
                         android:textColor="?attr/colorPrimary"
                         android:layout_marginLeft="@dimen/text_margin"
                         android:layout_marginStart="@dimen/text_margin"
@@ -108,8 +109,8 @@
         <be.webelite.ion.IconView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:name="ion_home"
-            android:textSize="@dimen/text_size_title"
+            app:name="ion_gear_b"
+            android:textSize="@dimen/drawer_icon_size"
             android:textColor="?attr/colorPrimary"
             android:layout_marginLeft="@dimen/text_margin"
             android:layout_marginStart="@dimen/text_margin"

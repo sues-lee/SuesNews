@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SUESNews</string>
+    <string name="app_name">腾飞新闻</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">设置</string>
     <string name="action_share">分享</string>
@@ -11,11 +11,14 @@
     <string name="title_activity_news_content"> </string>
     <string name="click_to_exit">再按一次退出程序</string>
     <string name="delete_success">缓存清理成功</string>
-    <string name="app_home_page">http://sues.edu.cn</string>
+    <string name="app_home_page">http://fir.im/sues</string>
     <string name="setting_key_clear_cache">clear_cache</string>
     <string name="setting_key_post_back">post_back</string>
     <string name="setting_key_check_update">check_update</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="welcome_string">您好，请问有什么需要吐槽的吗</string>
+    <string name="share_app_string">发现一个有趣的APP，快来下载吧！</string>
+    <string name="net_unavaiable">刷新失败，请检查网络后重试</string>
 
 </resources>

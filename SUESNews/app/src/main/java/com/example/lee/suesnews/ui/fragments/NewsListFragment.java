@@ -44,9 +44,7 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
  */
 public class NewsListFragment extends BaseFragment {
 
-    private static final String ARG_DATA_LIST = "datalist";
     private static final String ARG_NEWS_TYPE = "newsType";
-
 
     //新闻类型
     private int mNewsType;
@@ -135,10 +133,6 @@ public class NewsListFragment extends BaseFragment {
                         //打开显示新闻内容的Activity,把新闻的url作为参数传过去
                         Intent startActivityIntent = new Intent(getActivity(),NewsContentActivity.class);
 
-//                        ActivityOptionsCompat options = ActivityOptionsCompat.makeScaleUpAnimation(view,
-//                                0,0,view.getWidth(),view.getHeight());
-
-
                         view.setDrawingCacheEnabled(true);
                         view.setPressed(false);
                         view.refreshDrawableState();
@@ -150,15 +144,12 @@ public class NewsListFragment extends BaseFragment {
                         urlBundle.putString("url",item.getUrl());
                         startActivityIntent.putExtra("key",urlBundle);
                         ActivityCompat.startActivity(getActivity(), startActivityIntent, options.toBundle());
-                        //设置页面切换动画
-//                        getActivity().overridePendingTransition(R.anim.activity_fade_in,
-//                                R.anim.no_anim);
 
                     }
                 })
             );
         //设置adapter
-        mAdapter = new MyRecyclerAdapter();
+        mAdapter = new MyRecyclerAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
 
         //得到数据
@@ -174,7 +165,6 @@ public class NewsListFragment extends BaseFragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                //TODO:添加加载新项目的方法
                 int lastVisibleItem = ((LinearLayoutManager)mLayoutManager).findLastVisibleItemPosition();
                 int totalItem = mLayoutManager.getItemCount();
                 //当剩下2个item时加载下一页
@@ -196,9 +186,7 @@ public class NewsListFragment extends BaseFragment {
             mNewsType = getArguments().getInt(ARG_NEWS_TYPE);
         }
         mCurrentPage = 0;
-
     }
-
 
 
     /**
@@ -217,10 +205,8 @@ public class NewsListFragment extends BaseFragment {
             return;
         }
 
-        Log.i("LIXU","size"+total);
         if(forced && mNewsItems.size()>0){
             mNewsItems.clear();
-            Log.i("LIXU","清空"+total);
         }
         LoadNewsListTask loadDataTask = new LoadNewsListTask(adapter,mNewsType,forced);
         loadDataTask.execute(currentPage);
@@ -277,16 +263,15 @@ public class NewsListFragment extends BaseFragment {
         @Override
         protected void onPostExecute(List<NewsItem> newsItems) {
             if (newsItems == null) {
-                //TODO:字符串转换为资源
-                Toast.makeText(getActivity(),"刷新失败，请检查网络后重试",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.net_unavaiable)
+                        ,Toast.LENGTH_LONG).show();
                 return;
             }
-            //TODO:处理强制刷新
+            //处理强制刷新
             if(mIsForced){
                 mAdapter.getmNewsList().clear();
             }
             mNewsItems.addAll(newsItems);
-
             mAdapter.addNews(newsItems);
             mAdapter.notifyDataSetChanged();
             frame.refreshComplete();

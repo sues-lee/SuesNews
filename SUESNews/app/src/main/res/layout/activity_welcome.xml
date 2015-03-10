@@ -12,15 +12,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"/>
-        <TextView android:text="@string/app_name"
+        <TextView
+            android:id="@+id/title_text"
+            android:text="@string/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_title_bigger"
             android:textStyle="bold"
-            android:textColor="@color/secondary_text"
+            android:textColor="@color/text_color"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/welcome_text_padding_bottom"
+            />
+        <TextView
+            android:id="@+id/version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_title"
+            android:textStyle="bold"
+            android:textColor="@color/secondary_text"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/welcome_version_text_padding_bottom"
+            tools:text="版本：beta-1.0.0"
             />
 
     </RelativeLayout>

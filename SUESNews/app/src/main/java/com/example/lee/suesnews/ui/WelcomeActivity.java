@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.lee.suesnews.R;
+import com.example.lee.suesnews.utils.CommonUtils;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.Random;
@@ -19,6 +21,8 @@ import java.util.Random;
 public class WelcomeActivity extends Activity {
 
     ImageView mBackgroundImage;
+    TextView mTitleText;
+    TextView mVersionText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,8 @@ public class WelcomeActivity extends Activity {
         View decorView = getWindow().getDecorView();
         int uiOptions = decorView.getSystemUiVisibility();
         int newUiOptions = uiOptions;
-        //newUiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
-        //TODO:隐藏导航栏
+        //隐藏导航栏
+        newUiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         decorView.setSystemUiVisibility(newUiOptions);
 
         mBackgroundImage = (ImageView) findViewById(R.id.image_background);
@@ -61,8 +65,7 @@ public class WelcomeActivity extends Activity {
             public void onAnimationEnd(Animation animation) {
                 //动画结束时打开首页
                 startActivity(new Intent(WelcomeActivity.this,MainActivity.class));
-                //TODO:
-                overridePendingTransition(R.anim.no_anim, R.anim.activity_slide_out);
+                overridePendingTransition(R.anim.activity_slide_in, R.anim.no_anim);
                 finish();
             }
 
@@ -71,6 +74,10 @@ public class WelcomeActivity extends Activity {
 
             }
         });
+
+        mTitleText = (TextView) findViewById(R.id.title_text);
+        mVersionText = (TextView) findViewById(R.id.version_text);
+        mVersionText.setText("版本："+ CommonUtils.getVersion(this));
     }
 
     @Override

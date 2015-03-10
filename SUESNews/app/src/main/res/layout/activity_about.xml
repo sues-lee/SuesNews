@@ -8,16 +8,101 @@
     tools:context="com.example.lee.suesnews.ui.AboutActivity">
     <include
         layout="@layout/common_toolbar"/>
-    <RelativeLayout
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?attr/actionBarSize"
+        android:padding="@dimen/text_margin"
+        android:orientation="vertical"
         >
+        <RelativeLayout
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="@dimen/about_icon_size"
+                android:layout_height="@dimen/about_icon_size"
+                android:layout_margin="@dimen/view_margin"
+                android:src="@drawable/ic_suesnews"/>
+            <RelativeLayout
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/about_icon_size"
+                android:layout_margin="@dimen/view_margin"
+                android:layout_toRightOf="@+id/icon">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_margin="@dimen/view_margin"
+                    android:textSize="@dimen/text_size_title_bigger"/>
+                <TextView
+                    android:id="@+id/version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="版本：1.0.0"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/view_margin"
+                    android:textSize="@dimen/text_size_subhead"/>
+        </RelativeLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
+            android:textSize="@dimen/text_size_title"
+            android:text="应用介绍："
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
+            android:textSize="@dimen/text_size_normal"
+            android:text="本应用是一个符合 Google MaterialDesign 规范的简单校园新闻客户端"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginLeft="@dimen/view_margin"
+            android:layout_marginRight="@dimen/view_margin"
+            android:layout_alignTop="@+id/dateTextView"
+            android:background="@color/divider_color"
+            />
+        <TextView
+            android:id="@+id/title_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
             android:textSize="@dimen/text_size_title"
-            android:text="本应用是一个符合Google MaterialDesign 规范的简单校园新闻客户端"/>
-    </RelativeLayout>
+            android:text="联系我："
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
+            android:textSize="@dimen/text_size_normal"
+            android:text="此应用为熟悉最新设计规范以及新开发环境所做，源代码开源，Gtihub地址：https://github.com/sues-lee/SuesNews 欢迎大家Star"
+            android:autoLink="all|web"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_margin"
+            android:textSize="@dimen/text_size_normal"
+            android:text="如果您喜欢本应用或有任何意见或建议，可通过 “设置”-“意见反馈”与我进行沟通，或者发送邮件至 lixu9527@gmail.com,感谢您的支持. "
+            android:autoLink="all|web"
+            />
+
+    </LinearLayout>
+    </ScrollView>
 
 </com.example.lee.suesnews.ui.widget.GestureFrameLayout>

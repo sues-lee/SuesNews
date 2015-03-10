@@ -23,6 +23,8 @@
     <dimen name="view_margin">8dp</dimen>
     <dimen name="card_margin">8dp</dimen>
     <dimen name="card_height">8dp</dimen>
+    <dimen name="drawer_icon_size">24dp</dimen>
+    <dimen name="about_icon_size">80dp</dimen>
 
     <dimen name="text_size_title">20sp</dimen>
     <dimen name="text_size_subhead">16sp</dimen>
@@ -30,6 +32,7 @@
     <dimen name="text_size_normal">16sp</dimen>
     <dimen name="text_size_body">14sp</dimen>
 
-    <dimen name="welcome_text_padding_bottom">80dp</dimen>
+    <dimen name="welcome_text_padding_bottom">160dp</dimen>
+    <dimen name="welcome_version_text_padding_bottom">120dp</dimen>
 </resources>
 

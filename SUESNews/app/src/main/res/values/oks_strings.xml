@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation" >
     <string name="cancel">取消</string>
     <string name="finish">完成</string>
     <string name="sharing">分享操作正在后台进行…</string>

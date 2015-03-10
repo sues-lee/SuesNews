@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    lintOptions {
+        // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        disable 'MissingTranslation'
+    }
     compileSdkVersion 21
     buildToolsVersion "21.0.1"
 
@@ -9,7 +13,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName "beta-1.0"
     }
     buildTypes {
         release {
@@ -32,7 +36,10 @@ dependencies {
     compile 'com.jpardogo.materialtabstrip:library:1.0.8'
     compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.1'
     compile 'be.webelite:ion-iconview:1.0.4@aar'
-
+    //友盟统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    //友盟用户反馈
+    compile 'com.umeng:fb:5.1.0'
     compile files('libs/ormlite-android-4.49-SNAPSHOT.jar')
     compile files('libs/ShareSDK-Core-2.5.8.jar')
     compile files('libs/ShareSDK-Email-2.5.8.jar')
@@ -46,7 +53,12 @@ dependencies {
     compile files('libs/ShareSDK-Wechat-Core-2.5.8.jar')
     compile files('libs/ShareSDK-Wechat-Favorite-2.5.8.jar')
     compile files('libs/ShareSDK-Wechat-Moments-2.5.8.jar')
+    compile files('libs/umeng-update-v2.6.0.jar')
 }
 repositories {
+    jcenter()
+    //友盟用户反馈
+    maven { url "https://raw.githubusercontent.com/umeng/mvn-repo-umeng/master/repository" }
+
     maven { url 'https://github.com/MarsVard/IonIconView/raw/master/maven' }
 }
