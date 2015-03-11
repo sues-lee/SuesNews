@@ -28,6 +28,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     //当前显示的数据
     private List<NewsItem> mNewsList = new ArrayList<NewsItem>();
+
+    public void setmDrawble(Drawable mDrawble) {
+        if (this.mDrawble == null) {
+            this.mDrawble = mDrawble;
+        }
+    }
+
     private Drawable mDrawble;
 //    private Context mContext;
 
@@ -45,7 +52,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         mNewsList = myDataset != null ? myDataset : new ArrayList<NewsItem>();
         Random random = new Random();
         int i = random.nextInt(4);
-        mDrawble = context.getResources().getDrawable(getImageId(i));
+        setmDrawble(context.getResources().getDrawable(getImageId(i)));
     }
 
     /**

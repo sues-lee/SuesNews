@@ -96,7 +96,10 @@
         </activity>
         <!--友盟APPKEY-->
         <meta-data android:value="54fda2b3fd98c57a8f0008f6" android:name="UMENG_APPKEY"></meta-data>
-
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="fir" >
+        </meta-data>
     </application>
 
 </manifest>

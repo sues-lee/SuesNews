@@ -188,7 +188,13 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_share) {
-            showShare(this,mNewsContent.getTitle() + " 分享自SUESNews");
+            String title = null;
+            String url = null;
+            if(mNewsContent != null){
+                title = mNewsContent.getTitle();
+                url = mNewsContent.getUrl();
+            }
+            showShare(this, title +" 详见：" + url +" \n分享自腾飞新闻： http://fir.im/sues");
             return true;
         }
 
