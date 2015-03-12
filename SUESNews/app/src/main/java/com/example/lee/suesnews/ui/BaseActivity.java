@@ -3,6 +3,7 @@ package com.example.lee.suesnews.ui;
 import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Build;
@@ -68,6 +69,11 @@ public class BaseActivity extends ActionBarActivity {
         super.onPause();
         //友盟统计
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     /**
