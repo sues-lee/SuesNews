@@ -79,9 +79,9 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
 
     private ViewGroup mContent;
 
-    private final int CURRENT_VERSION = Build.VERSION.SDK_INT;
-
-    private final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
+//    private final int CURRENT_VERSION = Build.VERSION.SDK_INT;
+//    private final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
+//    private final int VERSION_LOLLIPOP = Build.VERSION_CODES.LOLLIPOP;
 
     //侧边栏头部图片
     private ImageView mHeaderImage;
@@ -123,7 +123,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
             }
         });
 
-        mMaterialMenu = new MaterialMenuIconToolbar(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN) {
+        mMaterialMenu = new MaterialMenuIconToolbar(this, Color.BLACK, MaterialMenuDrawable.Stroke.THIN) {
             @Override
             public int getToolbarViewId() {
                 return R.id.toolbar;
@@ -163,7 +163,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mDrawer = (ViewGroup) findViewById(R.id.drawer);
         mMainPage = (ViewGroup) findViewById(R.id.main_page);
         //因为导航栏透明，要让出顶部和底部空间
-        if (CURRENT_VERSION >= VERSION_KITKAT) {
+        if (isNavBarTransparent()) {
             mMainPage.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
             mDrawer.setPadding(0, 0, 0, getNavigationBarHeight());
         }
@@ -232,22 +232,22 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
         mViewPager.setCurrentItem(0);
 
         mTabs.setViewPager(mViewPager);
-        mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int i, float v, int i2) {
-
-            }
-
-            @Override
-            public void onPageSelected(int i) {
-//                mViewPager.setCurrentItem(i);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int i) {
-
-            }
-        });
+//        mTabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int i, float v, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int i) {
+////                mViewPager.setCurrentItem(i);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int i) {
+//
+//            }
+//        });
 
     }
 
@@ -342,7 +342,7 @@ public class MainActivity extends BaseActivity implements ObservableScrollViewCa
                 FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mContent.getLayoutParams();
                 lp.height = (int) (getScreenHeight() - translationY - getStatusBarHeight()
                         - lp.topMargin);
-                if (CURRENT_VERSION >= VERSION_KITKAT){
+                if (CURRENT_VERSION >= VERSION_KITKAT && VERSION_LOLLIPOP > CURRENT_VERSION){
                     lp.height -= getNavigationBarHeight();
                 }
                 Log.i("TEST", "after" + Float.toString(mToolbar.getHeight()));

@@ -34,6 +34,11 @@ public class BaseActivity extends ActionBarActivity {
 
     protected Toolbar mToolbar;
     SystemBarTintManager mTintManager;
+
+
+    protected final int CURRENT_VERSION = Build.VERSION.SDK_INT;
+    protected final int VERSION_KITKAT = Build.VERSION_CODES.KITKAT;
+    protected final int VERSION_LOLLIPOP = Build.VERSION_CODES.LOLLIPOP;
 //    protected NewsItemBiz mNewsItemBiz;
 
     @Override
@@ -45,11 +50,17 @@ public class BaseActivity extends ActionBarActivity {
         //使用tintManager设置状态栏的颜色
         mTintManager= new SystemBarTintManager(this);
         // enable status bar tint
-        mTintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        if (isHasNavigationBar()) {
-            mTintManager.setNavigationBarTintEnabled(true);
+        //mTintManager.setStatusBarTintEnabled(true);
+        if (isNavBarTransparent()) {
+            mTintManager.setStatusBarTintEnabled(true);
+            // 有虚拟按键时
+            if (isHasNavigationBar()) {
+                mTintManager.setNavigationBarTintEnabled(true);
+            }else{
+                mTintManager.setNavigationBarTintEnabled(false);
+            }
         }
+
         // set a custom tint color for all system bars
         mTintManager.setTintColor(getResources().getColor(R.color.dark_primary_color));
 
@@ -95,6 +106,14 @@ public class BaseActivity extends ActionBarActivity {
 
        return MaterialMenuDrawable.IconState.BURGER;
    }
+
+    /**
+     * 是否将导航栏以及状态栏设为透明（API大于19小与21)
+     * @return
+     */
+    protected boolean isNavBarTransparent(){
+        return CURRENT_VERSION >= VERSION_KITKAT && VERSION_LOLLIPOP > CURRENT_VERSION;
+    }
 
     /**
      * 获得当前系统版本号

@@ -110,7 +110,7 @@ public class NewsContentActivity extends BaseActivity implements ObservableScrol
         gestureFrameLayout.attachToActivity(this);
 
         //因为顶栏透明，要让出顶栏和底栏空间
-        if (CURRENT_VERSION >= VERSION_KITKAT) {
+        if (isNavBarTransparent()) {
             gestureFrameLayout.setPadding(0, getStatusBarHeight(), 0, getNavigationBarHeight());
         }
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {

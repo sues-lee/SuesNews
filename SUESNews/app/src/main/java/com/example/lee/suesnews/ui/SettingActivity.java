@@ -30,7 +30,6 @@ public class SettingActivity extends BaseActivity implements SharedPreferences.O
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_black_18dp));
-        //mToolbar.setTitle("设置");
         setSupportActionBar(mToolbar);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

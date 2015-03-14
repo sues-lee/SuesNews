@@ -42,7 +42,7 @@
                     android:padding="@dimen/text_margin"
                     android:lineSpacingMultiplier="1.5"
                     android:background="@color/back_ground_color"
-                    android:autoLink="all|web"
+                    android:autoLink="web"
                     tools:text="adsdsadadas"
                     />
             </RelativeLayout>

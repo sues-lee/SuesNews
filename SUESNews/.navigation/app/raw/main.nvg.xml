@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navigationModel
+  ns = "http://schemas.android.com?import=com.android.tools.idea.editors.navigation.model.*">
+  <locations  
+    class = "java.util.ArrayList">
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_news_content"/>
+      <point      
+        x = "2440"      
+        y = "100"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.AboutActivity"/>
+      <point      
+        x = "500"      
+        y = "5420"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.umeng.update.UpdateDialogActivity"/>
+      <point      
+        x = "550"      
+        y = "5470"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.NewsContentActivity"/>
+      <point      
+        x = "500"      
+        y = "100"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.BaseActivity"/>
+      <point      
+        x = "640"      
+        y = "5600"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.wxapi.WXEntryActivity"/>
+      <point      
+        x = "650"      
+        y = "5570"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.MenuState"      
+        xmlResourceName = "menu_main"/>
+      <point      
+        x = "2440"      
+        y = "2760"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "cn.sharesdk.framework.ShareSDKUIShell"/>
+      <point      
+        x = "700"      
+        y = "5620"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.WelcomeActivity"/>
+      <point      
+        x = "750"      
+        y = "5670"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.umeng.fb.ConversationActivity"/>
+      <point      
+        x = "800"      
+        y = "5720"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.SettingActivity"/>
+      <point      
+        x = "800"      
+        y = "5760"/>
+    </statePointEntry>
+    <statePointEntry>
+      <state      
+        class = "com.android.tools.idea.editors.navigation.model.ActivityState"      
+        className = "com.example.lee.suesnews.ui.MainActivity"/>
+      <point      
+        x = "500"      
+        y = "2760"/>
+    </statePointEntry>
+  </locations>
+</navigationModel>

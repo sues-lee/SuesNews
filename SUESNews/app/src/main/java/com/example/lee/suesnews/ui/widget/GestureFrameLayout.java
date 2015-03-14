@@ -70,7 +70,7 @@ public class GestureFrameLayout extends FrameLayout  {
                     float endX = e2.getX();
                     float x = endX - startX;
 
-                    if( x < 0 ){
+                    if( x > -5 ){
                         scrollRight();
                         isFinish = true;
                     }else{
@@ -80,7 +80,6 @@ public class GestureFrameLayout extends FrameLayout  {
                     return true;
                 }
             };
-
 
     /**
      * 与Activity绑定
