@@ -27,6 +27,9 @@
 ##下载
 * 下载地址: http://fir.im/sues
 
+##更新记录
+* V1.1.0-beta : 1.修复界面错乱的问题;2.修复“关于”页面返回键无法点击的问题；3.解决Android5.0上的各种问题
+
 ##开发工具
 * AndroidStudio
 * Gradle
